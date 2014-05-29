@@ -6,12 +6,17 @@ meld + trace + colorfull console.log
 
 ##pre-requirements
 ```
-sudo npm i jshint nodeunit supervisor -g
+sudo npm i jshint nodeunit supervisor grunt-cli -g
 ```
 
-##nodeunit
+##test + jshint
 ```
-nodeunit tests/
+grunt
+```
+
+##watch for changes: test + jshint
+```
+grunt test
 ```
 
 ##nodeunit + node-debug
