@@ -1,3 +1,5 @@
+var utility = require('./utility');
+
 module.exports = function colorfullLogger(message, thisObj, args, colorIndex){
   /* colorfullLogger shows a console.debug with colors.
    *   creates a group and puts arguments and this
@@ -14,71 +16,46 @@ module.exports = function colorfullLogger(message, thisObj, args, colorIndex){
   var groupName
     , groupColor
 
-    , rpad = function (str, padString, length) {
-            while (str.length < length) {
-                str = str + padString;
-            }
-            return str;
-        }
-
-    , truncate = function (str, length, truncateStr) {
-            if (str === null) {
-                return '';
-            }
-            str = String(str);
-            truncateStr = truncateStr || '...';
-            length = ~~length;
-            return str.length > length ? str.slice(0, length) + truncateStr : str;
-        }
-
-    , _isObject = function(obj) {
-            return obj === Object(obj);
-    }
-
-    , _has = function(obj, key) {
-            return hasOwnProperty.call(obj, key);
-    }
-
     , getName = function (options) {
-            var nameParts
-                , name = ''
-                , method = ''
-            ;
+        var nameParts
+            , name = ''
+            , method = ''
+        ;
 
-            if (options.name) {
-                nameParts = options.name.split('.');
-            }
-            else {
-                return '';
-            }
-            
-            // get the first part
-            name = nameParts.shift();
-            name = truncate(name, (options.nameSize - 2), '..');
-
-            if (nameParts.length > 0) {
-                var fullMethodName = nameParts.join('.');
-                fullMethodName = getDetailsByMethodName(fullMethodName);
-                method = truncate(fullMethodName, (options.methodSize - 2), '..');
-
-                var hasId = _isObject(thisObj) && _has(thisObj, 'id');
-                if (hasId) {
-                    name = name + '[' + thisObj.id + ']';
-                }
-
-                name   = rpad(name,   ' ', options.nameSize);
-                method = rpad(method, ' ', options.methodSize);
-            }
-            else {
-                throw new Error('getName :: cant find "." to split method');
-            }
-
-            return name + method;
+        if (options.name) {
+            nameParts = options.name.split('.');
         }
+        else {
+            return '';
+        }
+        
+        // get the first part
+        name = nameParts.shift();
+        name = utility.truncate(name, (options.nameSize - 2), '..');
+
+        if (nameParts.length > 0) {
+            var fullMethodName = nameParts.join('.');
+            fullMethodName = getDetailsByMethodName(fullMethodName);
+            method = utility.truncate(fullMethodName, (options.methodSize - 2), '..');
+
+            var hasId = utility._isObject(thisObj) && utility._has(thisObj, 'id');
+            if (hasId) {
+                name = name + '[' + thisObj.id + ']';
+            }
+
+            name   = utility.rpad(name,   ' ', options.nameSize);
+            method = utility.rpad(method, ' ', options.methodSize);
+        }
+        else {
+            throw new Error('getName :: cant find "." to split method');
+        }
+
+        return name + method;
+    }
 
     , getDetailsByMethodName = function (name) {
-        if(args && typeof args === 'object' &&args.length > 0){
-          return rpad(name,   ' ', 20) + getArgs(args);
+        if(args && typeof args === 'object' && args.length > 0){
+          return utility.rpad(name,   ' ', 20) + getArgs(args);
         }
         return name;
       }
@@ -137,15 +114,14 @@ module.exports = function colorfullLogger(message, thisObj, args, colorIndex){
         99: {  backgroundColor: '#222'
             , foregroundColor: '#FBB'
         }
-    }
+      }
 
-    , logGroup = function ()
-        {
-            console.groupCollapsed(groupName, groupColor);
-            console.dir(thisObj);
-            console.dir(args);
-            console.groupEnd();
-        }
+    , logGroup = function (){
+          console.groupCollapsed(groupName, groupColor);
+          console.dir(thisObj);
+          console.dir(args);
+          console.groupEnd();
+      }
   ;
 
   var ignores = message.search(/\bgetWildcardCallbacks\b/) >= 0;

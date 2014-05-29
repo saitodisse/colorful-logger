@@ -4,7 +4,7 @@ module.exports = {
     setUp: function (callback) {
 	    console.groupCollapsed = function(){};
 	    console.groupEnd = function(){};
-	    console.debug = function(){};
+        console.debug = function(){};
         callback();
     },
     tearDown: function (callback) {
