@@ -1,0 +1,25 @@
+{
+  "name": "meld-trace-logger",
+  "version": "0.0.1",
+  "description": "colorfull console log, with meld and trace",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/saitodisse/meld-trace-logger.git"
+  },
+  "keywords": [
+    "meld",
+    "trace",
+    "log",
+    "color"
+  ],
+  "author": "Julio Saito",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saitodisse/meld-trace-logger/issues"
+  },
+  "homepage": "https://github.com/saitodisse/meld-trace-logger",
+  "dependencies": {
+    "meld": "^1.3.1"
+  }
+}
