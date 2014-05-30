@@ -3,6 +3,8 @@ var _ = require('lodash');
 
 var ColorfullLogger = function ColorfullLogger(config){
 
+	config = config || {};
+
 	var defaults = _.partialRight(_.assign, function(a, b) {
 	  return typeof a == 'undefined' ? b : a;
 	});
@@ -26,7 +28,7 @@ var ColorfullLogger = function ColorfullLogger(config){
 			return false;
 		}
 
-		this.config.output['debug'](message);
+		this.config.output['log'](message);
 		return true;
 	};
   

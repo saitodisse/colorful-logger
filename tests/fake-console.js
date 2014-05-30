@@ -1,8 +1,11 @@
 var fakeConsole = {};
 fakeConsole.logRecorder = [];
 
-fakeConsole.log = function() {
-
+fakeConsole.log = function(message) {
+	fakeConsole.logRecorder.push({
+		'methodName': 'log',
+		'message': message
+	});
 };
 
 fakeConsole.info = function() {
@@ -16,13 +19,6 @@ fakeConsole.warn = function() {
 fakeConsole.error = function() {
 
 };
-
-fakeConsole.debug = function(message) {
-	fakeConsole.logRecorder.push({
-		'methodName': 'debug',
-		'message': message
-	});
-},
 
 fakeConsole.trace = function() {
 
