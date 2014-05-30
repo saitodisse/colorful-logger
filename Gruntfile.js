@@ -5,9 +5,9 @@ module.exports = function(grunt) {
   grunt.initConfig({
     nodeunit: {
       options:{
-        reporter: 'minimal'
+        reporter: 'verbose'//'minimal'
       },
-      files: ['tests/**/*.js'],
+      files: ['tests/*.test.js'],
     },
 
     jshint: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         tasks: ['jshint']
       },
       nodeunit:{
-        files: ['src/*.js', 'tests/*.js'],
+        files: ['src/*.js', 'tests/*.test.js'],
         tasks: ['nodeunit']
       }
     }

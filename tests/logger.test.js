@@ -1,74 +1,95 @@
-var colorfullLogger = require('../src/colorfull-logger');
+var ColorfullLogger = require('../src/colorfull-logger');
+var fakeConsole = require('./fake-console');
+var colorfullLogger = new ColorfullLogger({
+	output: fakeConsole
+});
 
-function enableFakeConsole(colorfullLoggerCall, testCallback) {
-	//bkp original console
-	var oldLog = console;
-	console.debug = function(str){
-		testCallback(str);
-	};
-
-	//call the logger
-	colorfullLoggerCall();
-
-	//restore original console
-	console = oldLog;
-
-	// var oldLog = console;
-
-	// console.groupCollapsed = function(groupName, groupColor){
-	// 	console.log('groupName:[' + groupName + '], groupColor:[' + groupColor + ']');
-	// };
-	// console.groupEnd = function(){
-	// 	console.log('groupEnd:');
-	// };
-	// console.dir = function(obj){
-	// 	console.log('dir:', obj);
-	// };
-
-	// test.ok(true, 'test.ok(true)');
-
-	// f();
-
-}
+var TEN_CHARAC_MESSAGE = 'TEN_CHARAC';
 
 module.exports = {
 	setUp: function (callback) {
 		callback();
 	},
+	
 	tearDown: function (callback) {
 		callback();
 	},
 
-	colorfullLogger_is_a_function: function (test) {
-		test.equal('function', typeof colorfullLogger,
-			'must be a function');
+	colorfullLogger_is_an_object: function (test) {
+		test.equal('function', typeof ColorfullLogger,
+			'ColorfullLogger must be a constructor function');
+		
+		test.equal('object', typeof colorfullLogger,
+			'colorfullLogger must be an object');
+		
+		test.equal('function', typeof colorfullLogger.log,
+			'colorfullLogger.log must be a function');
+		
+		test.done();
+	},
+
+	config_has_his_defaults: function(test) {
+		var config = colorfullLogger.config;
+
+		test.ok(config.enabled,
+			'enabled === true');
+
 		test.done();
 	},
 
 	call_console_debug: function(test) {
-		var message = 'this must be printed';
-		enableFakeConsole(
-			function() {
-				colorfullLogger(message);
-			},
-			function(consoleResult) {
-				test.equal(message, consoleResult,
-					'console debug must be called with: "this must be printed"');
-				test.done();
-			}
-		);
+		colorfullLogger.log(TEN_CHARAC_MESSAGE);
 
+		test.equal('debug', fakeConsole.logRecorder[0].methodName,
+			'expect debug');
+		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message,
+			'expect TEN_CHARAC_MESSAGE');
+
+		test.done();
 	},
 
-	// can_log_a_simple_object: function (test) {
-	//     enableFakeConsole(function() {
-	//         var aSimpleObj = {
-	//             property1: 'property 1'
-	//         };
-	//         var argumentsSample = {'0':1,'1':'2','2':[3]};
-	//         colorfullLogger('Namespace.ObjectMethodName()', aSimpleObj, argumentsSample, 10);
-	//     }, test);
+	// disabled_on_startup: function(test){
+	// 	colorfullLogger = new ColorfullLogger({
+	// 		enabled: false
+	// 	});
 		
-	   //  test.done();
-	// }
+	// 	var mustBeFalse = colorfullLogger.log('it is disabled');
+	// 	test.ok(!mustBeFalse,
+	// 		'returns false when disabled');
+		
+	// 	test.done();
+	// },
+
+	// disabled_after_startup: function(test){
+	// 	colorfullLogger.configure({
+	// 		enabled: false
+	// 	});
+		
+	// 	var mustBeFalse = colorfullLogger.log('it is disabled');
+	// 	test.ok(!mustBeFalse,
+	// 		'returns false when disabled');
+		
+	// 	test.done();
+	// },
+
+	// enabled_after_startup: function(test){
+	// 	//create disabled
+	// 	colorfullLogger = new ColorfullLogger({
+	// 		enabled: false
+	// 	});
+
+	// 	//enable afterwards
+	// 	colorfullLogger.configure({
+	// 		enabled: true
+	// 	});
+		
+
+	// 	fakeConsole.consoleCallback.consoleDebug = function(strResult) {
+	// 		test.equal(TEN_CHARAC_MESSAGE, strResult,
+	// 			'the message must be received by console.debug');
+	// 		test.done();
+	// 	};
+
+	// 	colorfullLogger.log(TEN_CHARAC_MESSAGE);
+	// },
 };
