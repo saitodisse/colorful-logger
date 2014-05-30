@@ -8,6 +8,7 @@ var TEN_CHARAC_MESSAGE = 'TEN_CHARAC';
 
 module.exports = {
 	setUp: function (callback) {
+		fakeConsole.logRecorder = [];
 		callback();
 	},
 	
@@ -46,7 +47,7 @@ module.exports = {
 		test.done();
 	},
 
-	disabled_on_startup: function(test){
+	"disabled_on_startup": function(test){
 		colorfullLogger = new ColorfullLogger({
 			enabled: false
 		});

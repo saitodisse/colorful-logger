@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     nodeunit: {
       options:{
-        reporter: 'verbose'//'minimal'
+        reporter: 'default'//'minimal'
       },
       files: ['tests/*.test.js'],
     },
