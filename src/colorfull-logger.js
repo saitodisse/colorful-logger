@@ -22,10 +22,18 @@ var ColorfullLogger = function ColorfullLogger(config){
 		this.config = config;
 	};
 
-	this.log = function(message) {
+	this.log = function(opt) {
 		//check if it is disabled
 		if(this.config.enabled === false){
 			return false;
+		}
+
+		var message = '';
+		if(_.isObject(opt)){
+			message = opt.message;
+		}
+		else if(_.isString(opt)){
+			message = opt;
 		}
 
 		this.config.output['log'](message);

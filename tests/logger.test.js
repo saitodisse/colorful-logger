@@ -81,4 +81,16 @@ module.exports = {
 		test.done();
 	},
 
+	'can call with a literal object': function(test) {
+		colorfullLogger.log({
+			message: TEN_CHARAC_MESSAGE
+		});
+
+		test.equal('log', fakeConsole.logRecorder[0].methodName);
+		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
+
+		test.done();
+	},
+
+
 };
