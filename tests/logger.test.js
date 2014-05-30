@@ -40,25 +40,23 @@ module.exports = {
 	call_console_debug: function(test) {
 		colorfullLogger.log(TEN_CHARAC_MESSAGE);
 
-		test.equal('debug', fakeConsole.logRecorder[0].methodName,
-			'expect debug');
-		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message,
-			'expect TEN_CHARAC_MESSAGE');
+		test.equal('debug', fakeConsole.logRecorder[0].methodName);
+		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
 
 		test.done();
 	},
 
-	// disabled_on_startup: function(test){
-	// 	colorfullLogger = new ColorfullLogger({
-	// 		enabled: false
-	// 	});
+	disabled_on_startup: function(test){
+		colorfullLogger = new ColorfullLogger({
+			enabled: false
+		});
+
+		colorfullLogger.log(TEN_CHARAC_MESSAGE);
 		
-	// 	var mustBeFalse = colorfullLogger.log('it is disabled');
-	// 	test.ok(!mustBeFalse,
-	// 		'returns false when disabled');
-		
-	// 	test.done();
-	// },
+		test.equal(0, fakeConsole.logRecorder.length);
+
+		test.done();
+	},
 
 	// disabled_after_startup: function(test){
 	// 	colorfullLogger.configure({
