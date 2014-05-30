@@ -1,0 +1,28 @@
+{
+  "name": "meld-trace-logger",
+  "version": "0.0.1",
+  "homepage": "https://github.com/saitodisse/meld-trace-logger",
+  "authors": [
+    "Julio Makdisse Saito <saitodisse@gmail.com>"
+  ],
+  "description": "trace and render logs with colors",
+  "main": "index.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "console",
+    "log",
+    "trace",
+    "aop",
+    "meld"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
