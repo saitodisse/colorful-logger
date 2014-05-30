@@ -92,5 +92,15 @@ module.exports = {
 		test.done();
 	},
 
+	'set a color to the main message': function(test) {
+		colorfullLogger.log({
+			message: TEN_CHARAC_MESSAGE,
+			color: '#F40'
+		});
+
+		test.equal('%c' + TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
+		test.equal('color: #F40', fakeConsole.logRecorder[0].messageConfig);
+		test.done();
+	},
 
 };

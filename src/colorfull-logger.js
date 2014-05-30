@@ -36,7 +36,14 @@ var ColorfullLogger = function ColorfullLogger(config){
 			message = opt;
 		}
 
-		this.config.output['log'](message);
+		if(_.isUndefined(opt.color)){
+			this.config.output.log(message);
+		}
+		else{
+			this.config.output.log('%c' + message, 'color: ' + opt.color);
+		}
+
+		
 		return true;
 	};
   
