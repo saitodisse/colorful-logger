@@ -26,19 +26,27 @@ require.config({
 		underscore: '../bower_components/underscore/underscore',
 		backbone: '../bower_components/backbone/backbone',
 		backboneLocalstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
-		text: '../bower_components/requirejs-text/text'
+		text: '../bower_components/requirejs-text/text',
+
+		ColorfullLogger: '../bower_components/meld-trace-logger/src/colorfull-logger'
 	}
 });
 
 require([
 	'backbone',
 	'views/app',
-	'routers/router'
-], function (Backbone, AppView, Workspace) {
+	'routers/router',
+	'ColorfullLogger'
+], function (Backbone, AppView, Workspace, ColorfullLogger) {
 	/*jshint nonew:false*/
 	// Initialize routing and start Backbone.history()
 	new Workspace();
 	Backbone.history.start();
+
+
+	var logger = new ColorfullLogger();
+	logger.log('this is a simple test');
+
 
 	// Initialize the application view
 	new AppView();

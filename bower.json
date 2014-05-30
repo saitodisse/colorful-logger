@@ -18,6 +18,9 @@
     "meld"
   ],
   "license": "MIT",
+  "dependencies"  : {
+    "lodash"  : "*"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
