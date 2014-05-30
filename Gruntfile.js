@@ -4,6 +4,9 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     nodeunit: {
+      options:{
+        reporter: 'minimal'
+      },
       files: ['tests/**/*.js'],
     },
 
@@ -17,21 +20,22 @@ module.exports = function(grunt) {
 
     watch: {
       jshint:{
-        files: ['Gruntfile.js', '*.js', 'tests/{,*/}*.js'],
+        files: ['Gruntfile.js', 'src/*.js', 'tests/*.js'],
         tasks: ['jshint']
       },
       nodeunit:{
-        files: ['tests/**/*.js'],
+        files: ['src/*.js', 'tests/*.js'],
         tasks: ['nodeunit']
       }
     }
   });
-  
+
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('default', ['nodeunit', 'jshint']);
+  grunt.option('force', true);
 
   grunt.registerTask('test', [
     'jshint',
