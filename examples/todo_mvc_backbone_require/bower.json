@@ -8,6 +8,7 @@
     "todomvc-common": "~0.1.4",
     "backbone.localStorage": "~1.1.0",
     "requirejs": "~2.1.5",
-    "requirejs-text": "~2.0.5"
+    "requirejs-text": "~2.0.5",
+    "meld-trace-logger": "git@github.com:saitodisse/meld-trace-logger.git"
   }
 }
