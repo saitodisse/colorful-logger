@@ -41,16 +41,15 @@ require([
 	'backbone',
 	'views/app',
 	'routers/router',
-	'ColorfullLogger'
-], function (Backbone, AppView, Workspace, ColorfullLogger) {
+	'./logger/initialize-logger'
+], function (Backbone, AppView, Workspace, Logger) {
+	
+	new Logger();
+
 	/*jshint nonew:false*/
 	// Initialize routing and start Backbone.history()
 	new Workspace();
 	Backbone.history.start();
-
-
-	var logger = new ColorfullLogger.create();
-	logger.log('this is a simple test');
 
 
 	// Initialize the application view
