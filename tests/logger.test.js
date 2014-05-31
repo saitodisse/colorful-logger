@@ -1,6 +1,6 @@
 var ColorfullLogger = require('../src/colorfull-logger');
 var fakeConsole = require('./fake-console');
-var colorfullLogger = new ColorfullLogger({
+var colorfullLogger = new ColorfullLogger.create({
 	output: fakeConsole
 });
 
@@ -8,7 +8,7 @@ var TEN_CHARAC_MESSAGE = 'TEN_CHARAC';
 
 module.exports = {
 	setUp: function (callback) {
-		colorfullLogger = new ColorfullLogger({
+		colorfullLogger = new ColorfullLogger.create({
 			output: fakeConsole
 		});
 
@@ -22,7 +22,7 @@ module.exports = {
 	},
 
 	'ColorfullLogger object': function(test) {
-		test.equal('function', typeof ColorfullLogger);
+		test.equal('function', typeof ColorfullLogger.create);
 		
 		test.equal('object', typeof colorfullLogger);
 		
@@ -32,7 +32,7 @@ module.exports = {
 	},
 
 	'config has his owns defaults': function(test) {
-		colorfullLogger = new ColorfullLogger();
+		colorfullLogger = new ColorfullLogger.create();
 		var config = colorfullLogger.config;
 
 		test.ok(config.enabled);
@@ -52,7 +52,7 @@ module.exports = {
 	},
 
 	'when disabled do not call the output': function(test){
-		colorfullLogger = new ColorfullLogger({
+		colorfullLogger = new ColorfullLogger.create({
 			enabled: false
 		});
 
@@ -64,7 +64,7 @@ module.exports = {
 	},
 
 	'can be disabled after initialization': function(test){
-		colorfullLogger = new ColorfullLogger({
+		colorfullLogger = new ColorfullLogger.create({
 			enabled: false
 		});
 		

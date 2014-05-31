@@ -19,6 +19,10 @@ require.config({
 		backboneLocalstorage: {
 			deps: ['backbone'],
 			exports: 'Store'
+		},
+
+		ColorfullLogger: {
+			deps: ['lodash']
 		}
 	},
 	paths: {
@@ -28,6 +32,7 @@ require.config({
 		backboneLocalstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 		text: '../bower_components/requirejs-text/text',
 
+		lodash: '../bower_components/lodash/dist/lodash',
 		ColorfullLogger: '../bower_components/meld-trace-logger/src/colorfull-logger'
 	}
 });
@@ -44,7 +49,7 @@ require([
 	Backbone.history.start();
 
 
-	var logger = new ColorfullLogger();
+	var logger = new ColorfullLogger.create();
 	logger.log('this is a simple test');
 
 
