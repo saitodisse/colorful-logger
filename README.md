@@ -9,7 +9,7 @@ bower install git@github.com:saitodisse/meld-trace-logger.git --save
 ```
 
 ###configure
-```
+```javascript
 require.config({
 	// The shim config allows us to configure dependencies for
 	// scripts that do not call define() to register a module
@@ -26,7 +26,7 @@ require.config({
 ```
 
 ###call
-```
+```javascript
 define([
 	'ColorfullLogger'
 ], function (ColorfullLogger) {
