@@ -61,7 +61,7 @@ grunt test
 
 ###nodeunit + node-debug
 from: http://stackoverflow.com/questions/16652358/how-to-debug-nodeunit-using-node-inspector
-```
+```shell
 npm -g install supervisor node-inspector
 
 # console 1: supervisor restarts node-inspector when it quits, ignores file changes
