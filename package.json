@@ -1,7 +1,7 @@
 {
   "name": "meld-trace-logger",
   "version": "0.0.1",
-  "description": "colorfull console log, with meld and trace",
+  "description": "colorful console log, with meld and trace",
   "main": "index.js",
   "repository": {
     "type": "git",

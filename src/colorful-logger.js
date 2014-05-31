@@ -12,8 +12,8 @@
     factory(root, exports, _);
   }
 
-}(this, function(root, ColorfullLogger, _) {
-	ColorfullLogger.create = function (config){
+}(this, function(root, ColorfulLogger, _) {
+	ColorfulLogger.create = function (config){
 		config = config || {};
 
 		var defaults = _.partialRight(_.assign, function(a, b) {
@@ -59,7 +59,7 @@
 		};
 	};
 
-  return ColorfullLogger;
+  return ColorfulLogger;
 
 }));
 

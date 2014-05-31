@@ -1,1 +1,1 @@
-module.exports = require('./src/colorfull-logger');
+module.exports = require('./src/colorful-logger');

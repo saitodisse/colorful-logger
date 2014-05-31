@@ -1,14 +1,14 @@
 /*global define*/
 define([
-	'ColorfullLogger',
+	'ColorfulLogger',
 	'backbone',
 	'collections/todos',
 	'views/todos'
-], function (ColorfullLogger, Backbone, Todos, TodoView) {
+], function (ColorfulLogger, Backbone, Todos, TodoView) {
 	'use strict';
 
 	var LoggerConfiguration = function() {
-		var logger = new ColorfullLogger.create();
+		var logger = new ColorfulLogger.create();
 		
 		// a simple usage, not fun
 		logger.log('Welcome to Meld Trace Logger');

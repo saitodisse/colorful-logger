@@ -21,7 +21,7 @@ require.config({
 			exports: 'Store'
 		},
 
-		ColorfullLogger: {
+		ColorfulLogger: {
 			deps: ['lodash']
 		}
 	},
@@ -33,7 +33,7 @@ require.config({
 		text: '../bower_components/requirejs-text/text',
 
 		lodash: '../bower_components/lodash/dist/lodash',
-		ColorfullLogger: '../bower_components/meld-trace-logger/src/colorfull-logger'
+		ColorfulLogger: '../bower_components/meld-trace-logger/src/colorful-logger'
 	}
 });
 

@@ -1,6 +1,6 @@
 #meld-trace-logger 
 ###[beta 0.0.1]
-meld + trace + colorfull console.log
+meld + trace + colorful console.log
 
 ##AMD (require.js)
 ###install with bower
@@ -14,13 +14,13 @@ require.config({
 	// The shim config allows us to configure dependencies for
 	// scripts that do not call define() to register a module
 	shim: {
-		ColorfullLogger: {
+		ColorfulLogger: {
 			deps: ['lodash']
 		}
 	},
 	paths: {
 		lodash: '../bower_components/lodash/dist/lodash',
-		ColorfullLogger: '../bower_components/meld-trace-logger/src/colorfull-logger'
+		ColorfulLogger: '../bower_components/meld-trace-logger/src/colorful-logger'
 	}
 });
 ```
@@ -28,9 +28,9 @@ require.config({
 ###call
 ```javascript
 define([
-	'ColorfullLogger'
-], function (ColorfullLogger) {
-	var logger = new ColorfullLogger.create();
+	'ColorfulLogger'
+], function (ColorfulLogger) {
+	var logger = new ColorfulLogger.create();
 
 	// a simple usage, not fun
 	logger.log('Welcome to Meld Trace Logger');

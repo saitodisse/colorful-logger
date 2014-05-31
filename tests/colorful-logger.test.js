@@ -1,6 +1,6 @@
-var ColorfullLogger = require('../src/colorfull-logger');
+var ColorfulLogger = require('../src/colorful-logger');
 var fakeConsole = require('./fake-console');
-var colorfullLogger = new ColorfullLogger.create({
+var colorfulLogger = new ColorfulLogger.create({
 	output: fakeConsole
 });
 
@@ -8,7 +8,7 @@ var TEN_CHARAC_MESSAGE = 'TEN_CHARAC';
 
 module.exports = {
 	setUp: function (callback) {
-		colorfullLogger = new ColorfullLogger.create({
+		colorfulLogger = new ColorfulLogger.create({
 			output: fakeConsole
 		});
 
@@ -18,22 +18,22 @@ module.exports = {
 	},
 	
 	tearDown: function (callback) {
-		callback();
+		callback();		
 	},
 
-	'ColorfullLogger object': function(test) {
-		test.equal('function', typeof ColorfullLogger.create);
+	'ColorfulLogger object': function(test) {
+		test.equal('function', typeof ColorfulLogger.create);
 		
-		test.equal('object', typeof colorfullLogger);
+		test.equal('object', typeof colorfulLogger);
 		
-		test.equal('function', typeof colorfullLogger.log);
+		test.equal('function', typeof colorfulLogger.log);
 		
 		test.done();
 	},
 
 	'config has his owns defaults': function(test) {
-		colorfullLogger = new ColorfullLogger.create();
-		var config = colorfullLogger.config;
+		colorfulLogger = new ColorfulLogger.create();
+		var config = colorfulLogger.config;
 
 		test.ok(config.enabled);
 
@@ -42,8 +42,8 @@ module.exports = {
 		test.done();
 	},
 
-	'call colorfullLogger.log call the output': function(test) {
-		colorfullLogger.log(TEN_CHARAC_MESSAGE);
+	'call colorfulLogger.log call the output': function(test) {
+		colorfulLogger.log(TEN_CHARAC_MESSAGE);
 
 		test.equal('log', fakeConsole.logRecorder[0].methodName);
 		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
@@ -52,11 +52,11 @@ module.exports = {
 	},
 
 	'when disabled do not call the output': function(test){
-		colorfullLogger = new ColorfullLogger.create({
+		colorfulLogger = new ColorfulLogger.create({
 			enabled: false
 		});
 
-		colorfullLogger.log(TEN_CHARAC_MESSAGE);
+		colorfulLogger.log(TEN_CHARAC_MESSAGE);
 		
 		test.equal(0, fakeConsole.logRecorder.length);
 
@@ -64,25 +64,25 @@ module.exports = {
 	},
 
 	'can be disabled after initialization': function(test){
-		colorfullLogger = new ColorfullLogger.create({
+		colorfulLogger = new ColorfulLogger.create({
 			enabled: false
 		});
 		
-		colorfullLogger.configure({
+		colorfulLogger.configure({
 			enabled: false
 		});
-		test.equal(false, colorfullLogger.config.enabled);
+		test.equal(false, colorfulLogger.config.enabled);
 
-		colorfullLogger.configure({
+		colorfulLogger.configure({
 			enabled: true
 		});
-		test.equal(true, colorfullLogger.config.enabled);
+		test.equal(true, colorfulLogger.config.enabled);
 
 		test.done();
 	},
 
 	'can call with a literal object': function(test) {
-		colorfullLogger.log({
+		colorfulLogger.log({
 			message: TEN_CHARAC_MESSAGE
 		});
 
@@ -93,7 +93,7 @@ module.exports = {
 	},
 
 	'set a color to the main message': function(test) {
-		colorfullLogger.log({
+		colorfulLogger.log({
 			message: TEN_CHARAC_MESSAGE,
 			color: '#F40'
 		});
