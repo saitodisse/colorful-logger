@@ -1,5 +1,5 @@
-meld-trace-logger beta 0.0.1
-=================
+#meld-trace-logger 
+###[beta 0.0.1]
 meld + trace + colorfull console.log
 
 ##AMD (require.js)
