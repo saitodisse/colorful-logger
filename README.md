@@ -38,7 +38,7 @@ define([
 	// here it is a green colored message
 	logger.log({
 		message: 'this message must be green',
-		color: '#0A0'
+		css: 'color: #0A0'
 	});
 });
 ```

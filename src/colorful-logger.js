@@ -96,8 +96,8 @@
 		};
 
 		this.addCss = function (cssList, opt) {
-			if(opt && opt.color){
-				cssList.push('color: ' + opt.color);
+			if(opt && opt.css){
+				cssList.push(opt.css);
 			}
 		}
 
@@ -110,7 +110,7 @@
 				message = opt;
 			}
 
-			if(!_.isUndefined(opt.color)){
+			if(!_.isUndefined(opt.css)){
 				message = '%c' + message;
 			}
 

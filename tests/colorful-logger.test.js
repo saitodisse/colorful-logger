@@ -94,7 +94,7 @@ module.exports = {
 	'set a color to the main message': function(test) {
 		colorfulLogger.log({
 			message: 'SOME MESSAGE',
-			color: '#F40'
+			css: 'color: #F40'
 		});
 
 		test.equal('%c' + 'SOME MESSAGE', fakeConsole.logRecorder[0].message);
@@ -102,4 +102,14 @@ module.exports = {
 		test.done();
 	},
 
+	'bold text message': function(test) {
+		colorfulLogger.log({
+			message: 'SOME MESSAGE',
+			css: 'color: #F40'
+		});
+
+		test.equal('%c' + 'SOME MESSAGE', fakeConsole.logRecorder[0].message);
+		test.equal('color: #F40', fakeConsole.logRecorder[0].cssList[0]);
+		test.done();
+	},
 };

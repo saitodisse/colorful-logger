@@ -93,11 +93,11 @@ module.exports = {
 		colorfulLogger.log([
 			{
 				message: 'abc',
-				color: '#12F'
+				css: 'color: #12F'
 			},
 			{
 				message: 'def',
-				color: '#F21'
+				css: 'color: #F21'
 			}
 		]);
 
@@ -109,11 +109,11 @@ module.exports = {
 		colorfulLogger.log([
 			{
 				message: 'abc',
-				color: '#12F'
+				css: 'color: #12F'
 			},
 			{
 				message: 'def',
-				color: '#F21'
+				css: 'color: #F21'
 			}
 		]);
 
