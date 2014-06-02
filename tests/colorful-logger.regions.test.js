@@ -48,20 +48,44 @@ module.exports = {
 		test.done();
 	},
 
-	// 'log two simple messages': function(test) {
-	// 	colorfulLogger.log(
-	// 	[
-	// 		{
-	// 			message: 'ab'
-	// 		},
-	// 		{
-	// 			message: 'cd'
-	// 		}
-	// 	]);
+	'log various simple messages': function(test) {
+		colorfulLogger.log(['a', 'b', 'c', 'd']);
 
-	// 	test.equal('abcd', fakeConsole.logRecorder[0].message);
-	// 	test.done();
-	// },
+		test.equal('abcd', fakeConsole.logRecorder[0].message);
+		test.done();
+	},
 
+	'log two objects messages': function(test) {
+		colorfulLogger.log(
+		[
+			{
+				message: 'abc'
+			},
+			{
+				message: 'def'
+			}
+		]);
+
+		test.equal('abcdef', fakeConsole.logRecorder[0].message);
+		test.done();
+	},
+
+	'log two objects messages with sizes': function(test) {
+		colorfulLogger.log([
+			{
+				message: 'abc',
+				size: 4,
+				padString: ' '
+			},
+			{
+				message: 'def',
+				size: 4,
+				padString: ' '
+			}
+		]);
+
+		test.equal('abc def ', fakeConsole.logRecorder[0].message);
+		test.done();
+	},
 
 };
