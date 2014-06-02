@@ -130,7 +130,7 @@
 			}
 			else{
 				var params = [message].concat(cssList);
-				this.config.output.log.apply(null, params);
+				this.config.output.log.apply(this.config.output, params);
 			}
 		};
 
