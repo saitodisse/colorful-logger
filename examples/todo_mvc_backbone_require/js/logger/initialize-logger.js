@@ -25,7 +25,7 @@ define([
 		makeTable();
 		makeRandom();
 
-		makeGroup();
+		makeGroups();
 
 	};
 
@@ -111,17 +111,22 @@ define([
 		);
 	}
 
-	var makeGroup = function() {
-		logger.log({
-			logType: 'groupCollapsed',
-			message: 'Group 1'
-		});
-		logger.log({
-			message: 'this is inside'
-		});
-		logger.log({
-			logType: 'groupEnd'
-		});
+	var makeGroups = function() {
+		logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });
+			logger.log({ message: 'Group 2', logType: 'groupCollapsed', randomColor: true });
+				logger.log({ message: 'Group 3', logType: 'groupCollapsed', randomColor: true });
+					logger.log({ message: 'Group 4', logType: 'groupCollapsed', randomColor: true });
+						
+						logger.log({
+							message: 'this is inside',
+							randomColor: true
+						});
+
+					logger.log({ logType: 'groupEnd' });
+				logger.log({ logType: 'groupEnd' });
+			logger.log({ logType: 'groupEnd' });
+		logger.log({ logType: 'groupEnd' });
+
 	};
 
 	return LoggerConfiguration;
