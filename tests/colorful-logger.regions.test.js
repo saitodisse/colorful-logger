@@ -104,22 +104,21 @@ module.exports = {
 		test.done();
 	},
 
-	// 'must have %c with colors': function(test) {
-	// 	colorfulLogger.log([
-	// 		{
-	// 			message: 'abc',
-	// 			color: '#12F'
-	// 		},
-	// 		{
-	// 			message: 'def',
-	// 			color: '#F21'
-	// 		}
-	// 	]);
+	'must correct color CSS': function(test) {
+		colorfulLogger.log([
+			{
+				message: 'abc',
+				color: '#12F'
+			},
+			{
+				message: 'def',
+				color: '#F21'
+			}
+		]);
 
-	// 	test.equal('%cabc%cdef', fakeConsole.logRecorder[0].message);
-	// 	test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
-	// 	test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
-	// 	test.done();
-	// },
+		test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
+		test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
+		test.done();
+	},
 
 };

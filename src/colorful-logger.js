@@ -55,16 +55,17 @@
 					message = this.getMessage(optItem);
 					message = this.truncOrPadMessage(optItem, message);
 					fullMessage += message;
+					messagesConfig.push('color: ' + optItem.color);
 				}
 			}
 			else{
 				message = this.getMessage(opt);
 				message = this.truncOrPadMessage(opt, message);
 				fullMessage = message;
+				messagesConfig.push('color: ' + opt.color);
 			}
 
-
-			this.sendToOutput(opt, fullMessage);
+			this.sendToOutput(opt, fullMessage, messagesConfig);
 			
 			return true;
 		};
@@ -98,12 +99,12 @@
 			return message;
 		};
 
-		this.sendToOutput = function(opt, message) {
+		this.sendToOutput = function(opt, message, messagesConfig) {
 			if(_.isUndefined(opt.color)){
 				this.config.output.log(message);
 			}
 			else{
-				this.config.output.log(message, 'color: ' + opt.color);
+				this.config.output.log.apply(null, Array.prototype.concat([message], messagesConfig));
 			}
 		};
 

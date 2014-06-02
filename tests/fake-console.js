@@ -1,11 +1,15 @@
+var _ = require('lodash');
 var fakeConsole = {};
 fakeConsole.logRecorder = [];
 
-fakeConsole.log = function(message, messagesConfig) {
+fakeConsole.log = function() {
+	var args = _.toArray(arguments);
+	var message = args.shift();
+
 	fakeConsole.logRecorder.push({
 		'methodName': 'log',
 		'message': message,
-		'messagesConfig': messagesConfig
+		'messagesConfig': args
 	});
 };
 
