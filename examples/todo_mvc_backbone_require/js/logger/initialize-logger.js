@@ -7,34 +7,43 @@ define([
 ], function (ColorfulLogger, Backbone, Todos, TodoView) {
 	'use strict';
 
+	var logger = new ColorfulLogger.create();
+
 	var LoggerConfiguration = function() {
-		var logger = new ColorfulLogger.create();
 		
+		makeRainbow();
+
 		// a simple usage, not fun
-		logger.log('Welcome to Meld Trace Logger');
+		logger.log('Meld Trace Logger');
 		
-		// here it is a green colored message
-		logger.log({
-			message: 'this message must be green',
-			color: '#0A0'
-		});
+		makeRainbow();
 
-		// two colors mesage
+	};
+
+	var makeRainbow = function() {
+		// rainbow
 		logger.log(
-			{
-				message: 'this message ',
-				color: '#A00'
-			},
-			{
-				message: 'must ',
-				color: '#0A0'
-			},
-			{
-				message: 'be colorful',
-				color: '#00A'
-			}
+			[
+				{	message: '#',	color: '#f80c12' },
+				{	message: '#',	color: '#ee1100' },
+				{	message: '#',	color: '#ff3311' },
+				{	message: '#',	color: '#ff4422' },
+				{	message: '#',	color: '#ff6644' },
+				{	message: '#',	color: '#ff9933' },
+				{	message: '#',	color: '#feae2d' },
+				{	message: '#',	color: '#ccbb33' },
+				{	message: '#',	color: '#d0c310' },
+				{	message: '#',	color: '#aacc22' },
+				{	message: '#',	color: '#69d025' },
+				{	message: '#',	color: '#22ccaa' },
+				{	message: '#',	color: '#12bdb9' },
+				{	message: '#',	color: '#11aabb' },
+				{	message: '#',	color: '#4444dd' },
+				{	message: '#',	color: '#3311bb' },
+				{	message: '#',	color: '#3b0cbd' },
+				{	message: '#',	color: '#442299' },			
+			]
 		);
-
 	};
 
 	return LoggerConfiguration;
