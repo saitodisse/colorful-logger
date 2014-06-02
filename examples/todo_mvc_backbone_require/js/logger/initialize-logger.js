@@ -53,45 +53,45 @@ define([
 		logger.log(
 			[{
 				message: '10',
-				size: 10
+				size: 5
 			},
 			{
 				message: 'different sizes',
-				size: 10
+				size: 20
 			},
 			{
 				message: 'Lorem ipsum dolor',
-				size: 20
+				size: 40
 			}]
 		);
 
 		logger.log(
 			[{
 				message: '20',
-				size: 10
+				size: 5
 			},
 			{
 				message: 'but remains',
-				size: 10
+				size: 20
 			},
 			{
 				message: 'Lorem ipsum dolor sit amet',
-				size: 20
+				size: 40
 			}]
 		);
 
 		logger.log(
 			[{
 				message: '30',
-				size: 10
+				size: 5
 			},
 			{
 				message: 'aligned',
-				size: 10
+				size: 20
 			},
 			{
 				message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-				size: 20
+				size: 40
 			}]
 		);
 	}
