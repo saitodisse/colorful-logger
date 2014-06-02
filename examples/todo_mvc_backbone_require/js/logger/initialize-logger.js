@@ -21,32 +21,44 @@ define([
 
 		makeRainbow();
 
+		makeRandom();
 		makeTable();
+		makeRandom();
 	};
 
 	var makeRainbow = function() {
 		// rainbow
+		var fontSize = 'font-size: 11pt';
 		logger.log(
 			[
-				{	message: '#',	css: 'color: #f80c12; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ee1100; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ff3311; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ff4422; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ff6644; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ff9933; font-size: 11pt' },
-				{	message: '#',	css: 'color: #feae2d; font-size: 11pt' },
-				{	message: '#',	css: 'color: #ccbb33; font-size: 11pt' },
-				{	message: '#',	css: 'color: #d0c310; font-size: 11pt' },
-				{	message: '#',	css: 'color: #aacc22; font-size: 11pt' },
-				{	message: '#',	css: 'color: #69d025; font-size: 11pt' },
-				{	message: '#',	css: 'color: #22ccaa; font-size: 11pt' },
-				{	message: '#',	css: 'color: #12bdb9; font-size: 11pt' },
-				{	message: '#',	css: 'color: #11aabb; font-size: 11pt' },
-				{	message: '#',	css: 'color: #4444dd; font-size: 11pt' },
-				{	message: '#',	css: 'color: #3311bb; font-size: 11pt' },
-				{	message: '#',	css: 'color: #3b0cbd; font-size: 11pt' },
+				{	message: '#',	css: 'color: #f80c12;' + fontSize },
+				{	message: '#',	css: 'color: #ee1100;' + fontSize },
+				{	message: '#',	css: 'color: #ff3311;' + fontSize },
+				{	message: '#',	css: 'color: #ff4422;' + fontSize },
+				{	message: '#',	css: 'color: #ff6644;' + fontSize },
+				{	message: '#',	css: 'color: #ff9933;' + fontSize },
+				{	message: '#',	css: 'color: #feae2d;' + fontSize },
+				{	message: '#',	css: 'color: #ccbb33;' + fontSize },
+				{	message: '#',	css: 'color: #d0c310;' + fontSize },
+				{	message: '#',	css: 'color: #aacc22;' + fontSize },
+				{	message: '#',	css: 'color: #69d025;' + fontSize },
+				{	message: '#',	css: 'color: #22ccaa;' + fontSize },
+				{	message: '#',	css: 'color: #12bdb9;' + fontSize },
+				{	message: '#',	css: 'color: #11aabb;' + fontSize },
+				{	message: '#',	css: 'color: #4444dd;' + fontSize },
+				{	message: '#',	css: 'color: #3311bb;' + fontSize },
+				{	message: '#',	css: 'color: #3b0cbd;' + fontSize },
 			]
 		);
+	};
+
+	var makeRandom = function() {
+		// rainbow
+		var messages = [];
+		for (var i = 0; i < 65; i++) {
+			messages.push({	message: '*',	randomColor: true });
+		};
+		logger.log(messages);
 	};
 
 	var makeTable = function () {
