@@ -80,20 +80,26 @@
 					message = this.getMessage(optItem);
 					message = this.truncOrPadMessage(optItem, message);
 					fullMessage += message;
-					cssList.push('color: ' + optItem.color);
+					this.addCss(cssList, optItem);
 				}
 			}
 			else{
 				message = this.getMessage(opt);
 				message = this.truncOrPadMessage(opt, message);
 				fullMessage = message;
-				cssList.push('color: ' + opt.color);
+				this.addCss(cssList, opt);
 			}
 
 			this.sendToOutput(opt, fullMessage, cssList);
 			
 			return true;
 		};
+
+		this.addCss = function (cssList, opt) {
+			if(opt && opt.color){
+				cssList.push('color: ' + opt.color);
+			}
+		}
 
 		this.getMessage = function(opt) {
 			var message = '';
@@ -125,7 +131,7 @@
 		};
 
 		this.sendToOutput = function(opt, message, cssList) {
-			if(!cssList){
+			if(_.isUndefined(cssList) || cssList.length === 0){
 				this.config.output.log(message);
 			}
 			else{

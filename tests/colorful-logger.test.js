@@ -4,8 +4,6 @@ var colorfulLogger = new ColorfulLogger.create({
 	output: fakeConsole
 });
 
-var TEN_CHARAC_MESSAGE = 'TEN_CHARAC';
-
 module.exports = {
 	setUp: function (callback) {
 		colorfulLogger = new ColorfulLogger.create({
@@ -43,10 +41,10 @@ module.exports = {
 	},
 
 	'call colorfulLogger.log call the output': function(test) {
-		colorfulLogger.log(TEN_CHARAC_MESSAGE);
+		colorfulLogger.log('SOME MESSAGE');
 
 		test.equal('log', fakeConsole.logRecorder[0].methodName);
-		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
+		test.equal('SOME MESSAGE', fakeConsole.logRecorder[0].message);
 
 		test.done();
 	},
@@ -56,7 +54,7 @@ module.exports = {
 			enabled: false
 		});
 
-		colorfulLogger.log(TEN_CHARAC_MESSAGE);
+		colorfulLogger.log('SOME MESSAGE');
 		
 		test.equal(0, fakeConsole.logRecorder.length);
 
@@ -83,22 +81,23 @@ module.exports = {
 
 	'can call with a literal object': function(test) {
 		colorfulLogger.log({
-			message: TEN_CHARAC_MESSAGE
+			message: 'SOME MESSAGE'
 		});
 
 		test.equal('log', fakeConsole.logRecorder[0].methodName);
-		test.equal(TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
+		test.equal('SOME MESSAGE', fakeConsole.logRecorder[0].message);
+		test.equal(0, fakeConsole.logRecorder[0].cssList.length);
 
 		test.done();
 	},
 
 	'set a color to the main message': function(test) {
 		colorfulLogger.log({
-			message: TEN_CHARAC_MESSAGE,
+			message: 'SOME MESSAGE',
 			color: '#F40'
 		});
 
-		test.equal('%c' + TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
+		test.equal('%c' + 'SOME MESSAGE', fakeConsole.logRecorder[0].message);
 		test.equal('color: #F40', fakeConsole.logRecorder[0].cssList[0]);
 		test.done();
 	},
