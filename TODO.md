@@ -4,9 +4,9 @@ meld-trace-logger
 #TODO
 ##Colorful Logger
  - namespaces/regions (rpad) (ok)
- - multiples regions at the same line
- - limit size
- - set color automatically
+ - multiples regions at the same line (ok)
+ - limit size (ok)
+ - set color automatically 
  - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd
  - set ignore regex patterns
  
