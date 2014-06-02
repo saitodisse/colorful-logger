@@ -105,11 +105,11 @@ module.exports = {
 	'bold text message': function(test) {
 		colorfulLogger.log({
 			message: 'SOME MESSAGE',
-			css: 'color: #F40'
+			css: 'text-weight: bold'
 		});
 
 		test.equal('%c' + 'SOME MESSAGE', fakeConsole.logRecorder[0].message);
-		test.equal('color: #F40', fakeConsole.logRecorder[0].cssList[0]);
+		test.equal('text-weight: bold', fakeConsole.logRecorder[0].cssList[0]);
 		test.done();
 	},
 };

@@ -14,7 +14,7 @@ define([
 		makeRainbow();
 
 		// a simple usage, not fun
-		logger.log('Meld Trace Logger');
+		logger.log('Meld Trace Logger',	css: 'text-weight: bold');
 		
 		makeRainbow();
 
