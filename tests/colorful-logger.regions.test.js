@@ -41,23 +41,27 @@ module.exports = {
 		test.done();
 	},
 
-	'can add two messages/regions': function(test) {
-		colorfulLogger.log(
-		[
-			{
-				message: '12',
-				size: 4,
-				padString: ' '
-			},
-			{
-				message: '56',
-				size: 4,
-				padString: ' '
-			}
-		]);
+	'log two simple messages': function(test) {
+		colorfulLogger.log(['ab','cd']);
 
-		test.equal('12  56  ', fakeConsole.logRecorder[0].message);
+		test.equal('abcd', fakeConsole.logRecorder[0].message);
 		test.done();
 	},
+
+	// 'log two simple messages': function(test) {
+	// 	colorfulLogger.log(
+	// 	[
+	// 		{
+	// 			message: 'ab'
+	// 		},
+	// 		{
+	// 			message: 'cd'
+	// 		}
+	// 	]);
+
+	// 	test.equal('abcd', fakeConsole.logRecorder[0].message);
+	// 	test.done();
+	// },
+
 
 };

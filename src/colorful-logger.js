@@ -35,39 +35,70 @@
 		};
 
 		this.log = function(opt) {
-			//check if it is disabled
+			var fullMessage = '',
+				message = '',
+				optItem,
+				i
+			;
+
 			if(this.config.enabled === false){
+				//disabled, do nothing
 				return false;
 			}
 
-			var message = '';
-			if(_.isObject(opt)){
-				message = opt.message;
+
+			if(_.isArray(opt)){
+				for (i = 0; i < opt.length; i++) {
+					optItem = opt[i];
+
+					message = this.getMessage(optItem);
+					message = this.truncOrPadMessage(optItem, message);
+					fullMessage += message;
+				}
 			}
-			else if(_.isString(opt)){
-				message = opt;
+			else{
+				message = this.getMessage(opt);
+				message = this.truncOrPadMessage(opt, message);
+				fullMessage = message;
 			}
 
+
+			this.sendToOutput(opt, fullMessage);
+			
+			return true;
+		};
+
+		this.getMessage = function(opt) {
+			if(_.isObject(opt)){
+				return opt.message;
+			}
+			else if(_.isString(opt)){
+				return opt;
+			}
+		};
+
+		this.truncOrPadMessage = function(opt, message) {
 			if(opt.size && opt.padString){
 				var isSmaller = message.length <= opt.size;
 				if(isSmaller){
-					message = stringUtility.rpad(message, opt.padString, opt.size);
+					return stringUtility.rpad(message, opt.padString, opt.size);
 				}
 				else{
-					message = stringUtility.truncate(message, opt.size);
+					return stringUtility.truncate(message, opt.size);
 				}
 			}
+			return message;
+		};
 
+		this.sendToOutput = function(opt, message) {
 			if(_.isUndefined(opt.color)){
 				this.config.output.log(message);
 			}
 			else{
 				this.config.output.log('%c' + message, 'color: ' + opt.color);
 			}
-
-			
-			return true;
 		};
+
 	};
 
   return ColorfulLogger;
