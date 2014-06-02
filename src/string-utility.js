@@ -10,15 +10,7 @@ module.exports.truncate = function (str, length, truncateStr) {
         return '';
     }
     str = String(str);
-    truncateStr = truncateStr || '...';
+    truncateStr = truncateStr || '..';
     length = ~~length;
-    return str.length > length ? str.slice(0, length) + truncateStr : str;
-};
-
-module.exports._isObject = function(obj) {
-    return obj === Object(obj);
-};
-
-module.exports._has = function(obj, key) {
-    return hasOwnProperty.call(obj, key);
+    return str.length > length ? str.slice(0, length-2) + truncateStr : str;
 };

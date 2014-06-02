@@ -2,17 +2,18 @@
 
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['lodash', 'exports'], function (_, exports) {
-      factory(root, exports, _);
+    define(['lodash', './string-utility', 'exports'], function (_, stringUtility, exports) {
+      factory(root, exports, _, stringUtility);
     });
 
   // Node.js
   } else if (typeof exports !== 'undefined') {
     var _ = require('lodash');
-    factory(root, exports, _);
+    var stringUtility = require('./string-utility');
+    factory(root, exports, _, stringUtility);
   }
 
-}(this, function(root, ColorfulLogger, _) {
+}(this, function(root, ColorfulLogger, _, stringUtility) {
 	ColorfulLogger.create = function (config){
 		config = config || {};
 
@@ -45,6 +46,16 @@
 			}
 			else if(_.isString(opt)){
 				message = opt;
+			}
+
+			if(opt.size && opt.padString){
+				var isSmaller = message.length <= opt.size;
+				if(isSmaller){
+					message = stringUtility.rpad(message, opt.padString, opt.size);
+				}
+				else{
+					message = stringUtility.truncate(message, opt.size);
+				}
 			}
 
 			if(_.isUndefined(opt.color)){

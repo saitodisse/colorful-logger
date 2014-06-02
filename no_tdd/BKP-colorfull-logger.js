@@ -1,4 +1,4 @@
-var utility = require('./utility');
+var utility = require('./string-utility');
 
 module.exports = function colorfulLogger(message, thisObj, args, colorIndex){
   /* colorfulLogger shows a console.debug with colors.
