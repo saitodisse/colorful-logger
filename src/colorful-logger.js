@@ -149,7 +149,6 @@
 		this.sendToOutput = function(opt, message, cssList) {
 			var localConsole = this.config.output;
 			var logtype = (opt && opt.logType) || 'log';
-			console.log('logtype:', logtype);
 
 			if(_.isUndefined(cssList) || cssList.length === 0){
 				localConsole[logtype](message);

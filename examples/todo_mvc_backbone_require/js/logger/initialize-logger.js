@@ -24,6 +24,9 @@ define([
 		makeRandom();
 		makeTable();
 		makeRandom();
+
+		makeGroup();
+
 	};
 
 	var makeRainbow = function() {
@@ -107,6 +110,19 @@ define([
 			}]
 		);
 	}
+
+	var makeGroup = function() {
+		logger.log({
+			logType: 'groupCollapsed',
+			message: 'Group 1'
+		});
+		logger.log({
+			message: 'this is inside'
+		});
+		logger.log({
+			logType: 'groupEnd'
+		});
+	};
 
 	return LoggerConfiguration;
 });
