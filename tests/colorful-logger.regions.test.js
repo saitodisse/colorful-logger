@@ -88,7 +88,7 @@ module.exports = {
 		test.done();
 	},
 
-	'log two objects messages with colors': function(test) {
+	'must have %c with colors': function(test) {
 		colorfulLogger.log([
 			{
 				message: 'abc',
@@ -100,10 +100,26 @@ module.exports = {
 			}
 		]);
 
-		test.equal('abc def ', fakeConsole.logRecorder[0].message);
-		test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
-		test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
+		test.equal('%cabc%cdef', fakeConsole.logRecorder[0].message);
 		test.done();
 	},
+
+	// 'must have %c with colors': function(test) {
+	// 	colorfulLogger.log([
+	// 		{
+	// 			message: 'abc',
+	// 			color: '#12F'
+	// 		},
+	// 		{
+	// 			message: 'def',
+	// 			color: '#F21'
+	// 		}
+	// 	]);
+
+	// 	test.equal('%cabc%cdef', fakeConsole.logRecorder[0].message);
+	// 	test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
+	// 	test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
+	// 	test.done();
+	// },
 
 };

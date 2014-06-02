@@ -37,6 +37,7 @@
 		this.log = function(opt) {
 			var fullMessage = '',
 				message = '',
+				messagesConfig = [],
 				optItem,
 				i
 			;
@@ -69,12 +70,19 @@
 		};
 
 		this.getMessage = function(opt) {
+			var message = '';
 			if(_.isObject(opt)){
-				return opt.message;
+				message = opt.message;
 			}
 			else if(_.isString(opt)){
-				return opt;
+				message = opt;
 			}
+
+			if(!_.isUndefined(opt.color)){
+				message = '%c' + message;
+			}
+
+			return message;
 		};
 
 		this.truncOrPadMessage = function(opt, message) {
@@ -95,7 +103,7 @@
 				this.config.output.log(message);
 			}
 			else{
-				this.config.output.log('%c' + message, 'color: ' + opt.color);
+				this.config.output.log(message, 'color: ' + opt.color);
 			}
 		};
 
