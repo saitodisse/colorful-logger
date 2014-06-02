@@ -113,7 +113,7 @@
 				}
 				cssList.push(opt.css);
 			}
-		}
+		};
 
 		this.getMessage = function(opt) {
 			var message = '';
@@ -147,12 +147,16 @@
 		};
 
 		this.sendToOutput = function(opt, message, cssList) {
+			var localConsole = this.config.output;
+			var logtype = (opt && opt.logType) || 'log';
+			console.log('logtype:', logtype);
+
 			if(_.isUndefined(cssList) || cssList.length === 0){
-				this.config.output.log(message);
+				localConsole[logtype](message);
 			}
 			else{
 				var params = [message].concat(cssList);
-				this.config.output.log.apply(this.config.output, params);
+				localConsole[logtype].apply(localConsole, params);
 			}
 		};
 

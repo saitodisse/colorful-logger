@@ -38,11 +38,25 @@ fakeConsole.group = function() {
 };
 
 fakeConsole.groupCollapsed = function() {
+	var args = _.toArray(arguments);
+	var message = args.shift();
 
+	fakeConsole.logRecorder.push({
+		'methodName': 'groupCollapsed',
+		'message': message,
+		'cssList': args
+	});
 };
 
 fakeConsole.groupEnd = function() {
+	var args = _.toArray(arguments);
+	var message = args.shift();
 
+	fakeConsole.logRecorder.push({
+		'methodName': 'groupEnd',
+		'message': message,
+		'cssList': args
+	});
 };
 
 fakeConsole.time = function() {

@@ -7,7 +7,7 @@ meld-trace-logger
  - multiples regions at the same line (ok)
  - limit size (ok)
  - can disable CSS (ok)
- - set color automatically 
+ - set color automatically (ok)
  - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd
  - set ignore regex patterns
  
