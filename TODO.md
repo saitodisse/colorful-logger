@@ -6,6 +6,7 @@ meld-trace-logger
  - namespaces/regions (rpad) (ok)
  - multiples regions at the same line (ok)
  - limit size (ok)
+ - can disable CSS (ok)
  - set color automatically 
  - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd
  - set ignore regex patterns

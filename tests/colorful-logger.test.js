@@ -112,4 +112,18 @@ module.exports = {
 		test.equal('font-weight: bold', fakeConsole.logRecorder[0].cssList[0]);
 		test.done();
 	},
+
+	'css can be disabled': function(test) {
+		colorfulLogger.configure({
+			enabledCss: false
+		});
+		colorfulLogger.log({
+			message: 'SOME MESSAGE',
+			css: 'color: #F40; font-weight: bold'
+		});
+
+		test.equal('SOME MESSAGE', fakeConsole.logRecorder[0].message);
+		test.equal(0, fakeConsole.logRecorder[0].cssList.length);
+		test.done();
+	},
 };

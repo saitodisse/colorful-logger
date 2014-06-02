@@ -50,7 +50,8 @@
 		var defaultConfig = {
 			'enabled': true,
 			'output': console,
-			'padString': ' '
+			'padString': ' ',
+			'enabledCss': true
 		};
 
 		defaults(config, defaultConfig);
@@ -97,7 +98,7 @@
 		};
 
 		this.addCss = function (cssList, opt) {
-			if(opt && opt.css){
+			if(opt && opt.css && this.config.enabledCss){
 				cssList.push(opt.css);
 			}
 		}
@@ -111,7 +112,7 @@
 				message = opt;
 			}
 
-			if(!_.isUndefined(opt.css)){
+			if(!_.isUndefined(opt.css) && this.config.enabledCss){
 				message = '%c' + message;
 			}
 
