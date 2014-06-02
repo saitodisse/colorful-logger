@@ -75,13 +75,11 @@ module.exports = {
 		colorfulLogger.log([
 			{
 				message: 'abc',
-				size: 4,
-				padString: ' '
+				size: 4
 			},
 			{
 				message: 'def',
-				size: 4,
-				padString: ' '
+				size: 4
 			}
 		]);
 

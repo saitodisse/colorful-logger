@@ -119,10 +119,11 @@
 		};
 
 		this.truncOrPadMessage = function(opt, message) {
-			if(opt.size && opt.padString){
+			if(opt.size){
 				var isSmaller = message.length <= opt.size;
+				var padString = opt.padString || this.config.padString;
 				if(isSmaller){
-					return stringUtility.rpad(message, opt.padString, opt.size);
+					return stringUtility.rpad(message, padString, opt.size);
 				}
 				else{
 					return stringUtility.truncate(message, opt.size);
