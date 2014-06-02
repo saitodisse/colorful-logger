@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var ColorfulLogger = require('../src/colorful-logger');
 var fakeConsole = require('./fake-console');
 var colorfulLogger = new ColorfulLogger.create({
@@ -116,8 +117,9 @@ module.exports = {
 			}
 		]);
 
-		test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
-		test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
+		test.ok(_.isArray(fakeConsole.logRecorder[0].cssList));
+		test.equal('color: #12F', fakeConsole.logRecorder[0].cssList[0]);
+		test.equal('color: #F21', fakeConsole.logRecorder[0].cssList[1]);
 		test.done();
 	},
 

@@ -9,7 +9,7 @@ fakeConsole.log = function() {
 	fakeConsole.logRecorder.push({
 		'methodName': 'log',
 		'message': message,
-		'messagesConfig': args
+		'cssList': args
 	});
 };
 

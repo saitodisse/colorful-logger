@@ -37,7 +37,7 @@
 		this.log = function(opt) {
 			var fullMessage = '',
 				message = '',
-				messagesConfig = [],
+				cssList = [],
 				optItem,
 				i
 			;
@@ -47,7 +47,6 @@
 				return false;
 			}
 
-
 			if(_.isArray(opt)){
 				for (i = 0; i < opt.length; i++) {
 					optItem = opt[i];
@@ -55,17 +54,17 @@
 					message = this.getMessage(optItem);
 					message = this.truncOrPadMessage(optItem, message);
 					fullMessage += message;
-					messagesConfig.push('color: ' + optItem.color);
+					cssList.push('color: ' + optItem.color);
 				}
 			}
 			else{
 				message = this.getMessage(opt);
 				message = this.truncOrPadMessage(opt, message);
 				fullMessage = message;
-				messagesConfig.push('color: ' + opt.color);
+				cssList.push('color: ' + opt.color);
 			}
 
-			this.sendToOutput(opt, fullMessage, messagesConfig);
+			this.sendToOutput(opt, fullMessage, cssList);
 			
 			return true;
 		};
@@ -99,12 +98,13 @@
 			return message;
 		};
 
-		this.sendToOutput = function(opt, message, messagesConfig) {
-			if(_.isUndefined(opt.color)){
+		this.sendToOutput = function(opt, message, cssList) {
+			if(!cssList){
 				this.config.output.log(message);
 			}
 			else{
-				this.config.output.log.apply(null, Array.prototype.concat([message], messagesConfig));
+				var params = [message].concat(cssList);
+				this.config.output.log.apply(null, params);
 			}
 		};
 
