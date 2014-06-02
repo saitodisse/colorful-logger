@@ -1,11 +1,11 @@
 var fakeConsole = {};
 fakeConsole.logRecorder = [];
 
-fakeConsole.log = function(message, messageConfig) {
+fakeConsole.log = function(message, messagesConfig) {
 	fakeConsole.logRecorder.push({
 		'methodName': 'log',
 		'message': message,
-		'messageConfig': messageConfig
+		'messagesConfig': messagesConfig
 	});
 };
 

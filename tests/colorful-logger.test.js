@@ -99,7 +99,7 @@ module.exports = {
 		});
 
 		test.equal('%c' + TEN_CHARAC_MESSAGE, fakeConsole.logRecorder[0].message);
-		test.equal('color: #F40', fakeConsole.logRecorder[0].messageConfig);
+		test.equal('color: #F40', fakeConsole.logRecorder[0].messagesConfig);
 		test.done();
 	},
 

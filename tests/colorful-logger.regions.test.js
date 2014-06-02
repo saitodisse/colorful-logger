@@ -88,4 +88,22 @@ module.exports = {
 		test.done();
 	},
 
+	'log two objects messages with colors': function(test) {
+		colorfulLogger.log([
+			{
+				message: 'abc',
+				color: '#12F'
+			},
+			{
+				message: 'def',
+				color: '#F21'
+			}
+		]);
+
+		test.equal('abc def ', fakeConsole.logRecorder[0].message);
+		test.equal('color: #12F', fakeConsole.logRecorder[0].messagesConfig[0]);
+		test.equal('color: #F21', fakeConsole.logRecorder[0].messagesConfig[1]);
+		test.done();
+	},
+
 };
