@@ -18,9 +18,10 @@ define([
 			message: ' Meld Trace Logger',
 			css: 'font-weight: bold; font-size: 10pt'
 		});
-		
+
 		makeRainbow();
 
+		makeTable();
 	};
 
 	var makeRainbow = function() {
@@ -47,6 +48,53 @@ define([
 			]
 		);
 	};
+
+	var makeTable = function () {
+		logger.log(
+			[{
+				message: '10',
+				size: 10
+			},
+			{
+				message: 'different sizes',
+				size: 10
+			},
+			{
+				message: 'Lorem ipsum dolor',
+				size: 20
+			}]
+		);
+
+		logger.log(
+			[{
+				message: '20',
+				size: 10
+			},
+			{
+				message: 'but remains',
+				size: 10
+			},
+			{
+				message: 'Lorem ipsum dolor sit amet',
+				size: 20
+			}]
+		);
+
+		logger.log(
+			[{
+				message: '30',
+				size: 10
+			},
+			{
+				message: 'aligned',
+				size: 10
+			},
+			{
+				message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+				size: 20
+			}]
+		);
+	}
 
 	return LoggerConfiguration;
 });

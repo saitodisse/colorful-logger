@@ -49,7 +49,8 @@
 
 		var defaultConfig = {
 			'enabled': true,
-			'output': console
+			'output': console,
+			'padString': ' '
 		};
 
 		defaults(config, defaultConfig);

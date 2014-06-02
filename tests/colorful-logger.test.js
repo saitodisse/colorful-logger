@@ -34,8 +34,8 @@ module.exports = {
 		var config = colorfulLogger.config;
 
 		test.ok(config.enabled);
-
 		test.equal(console, config.output);
+		test.equal(' ', config.padString);
 
 		test.done();
 	},
