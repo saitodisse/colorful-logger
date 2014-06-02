@@ -98,7 +98,19 @@
 		};
 
 		this.addCss = function (cssList, opt) {
-			if(opt && opt.css && this.config.enabledCss){
+			if(opt && (opt.css || opt.randomColor) && this.config.enabledCss){
+				if(opt.randomColor){
+					var someColors = ['#600','#330','#033','#21460F','#6700B9','#284','#7653C1'];
+					var randomNumber = _.random(0, someColors.length-1, false);
+					var oneColor = someColors[randomNumber];
+					if(_.isUndefined(opt.css)){
+						opt.css = 'color: ' + oneColor;
+					}
+					else{
+						opt.css = opt.css + '; color: ' + oneColor;
+					}
+					
+				}
 				cssList.push(opt.css);
 			}
 		}
@@ -112,7 +124,8 @@
 				message = opt;
 			}
 
-			if(!_.isUndefined(opt.css) && this.config.enabledCss){
+			var hasCss = (!_.isUndefined(opt.css) || opt.randomColor);
+			if(hasCss && this.config.enabledCss){
 				message = '%c' + message;
 			}
 

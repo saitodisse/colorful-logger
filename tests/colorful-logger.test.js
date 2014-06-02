@@ -126,4 +126,16 @@ module.exports = {
 		test.equal(0, fakeConsole.logRecorder[0].cssList.length);
 		test.done();
 	},
+
+	'can get an almost random color': function(test) {
+		colorfulLogger.log({
+			message: 'SOME MESSAGE',
+			randomColor: true
+		});
+
+		test.equal('%c' + 'SOME MESSAGE', fakeConsole.logRecorder[0].message);
+		test.equal('color: ', fakeConsole.logRecorder[0].cssList[0].substring(0,7));
+		test.done();
+	},
+
 };
