@@ -2,19 +2,45 @@
 
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['lodash', './string-utility', 'exports'], function (_, stringUtility, exports) {
-      factory(root, exports, _, stringUtility);
+    define(['lodash', 'exports'], function (_, exports) {
+      factory(root, exports, _);
     });
 
   // Node.js
   } else if (typeof exports !== 'undefined') {
     var _ = require('lodash');
-    var stringUtility = require('./string-utility');
-    factory(root, exports, _, stringUtility);
+    factory(root, exports, _);
   }
 
-}(this, function(root, ColorfulLogger, _, stringUtility) {
+}(this, function(root, ColorfulLogger, _) {
+
+	/*******************************
+		string utilities
+	*******************************/
+	ColorfulLogger.stringUtility = {
+		rpad: function (str, padString, length) {
+	    while (str.length < length) {
+	        str = str + padString;
+	    }
+	    return str;
+		},
+		truncate: function (str, length, truncateStr) {
+	    if (str === null) {
+	        return '';
+	    }
+	    str = String(str);
+	    truncateStr = truncateStr || '..';
+	    length = ~~length;
+	    return str.length > length ? str.slice(0, length-2) + truncateStr : str;
+		}
+	};
+
+	/*******************************
+		ColorfulLogger
+	*******************************/
 	ColorfulLogger.create = function (config){
+		var stringUtility = ColorfulLogger.stringUtility;
+
 		config = config || {};
 
 		var defaults = _.partialRight(_.assign, function(a, b) {

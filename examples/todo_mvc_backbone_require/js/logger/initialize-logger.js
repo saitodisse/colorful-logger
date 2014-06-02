@@ -19,6 +19,22 @@ define([
 			color: '#0A0'
 		});
 
+		// two colors mesage
+		logger.log(
+			{
+				message: 'this message ',
+				color: '#A00'
+			},
+			{
+				message: 'must ',
+				color: '#0A0'
+			},
+			{
+				message: 'be colorful',
+				color: '#00A'
+			}
+		);
+
 	};
 
 	return LoggerConfiguration;
