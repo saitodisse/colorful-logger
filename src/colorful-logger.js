@@ -38,7 +38,7 @@
 	/*******************************
 		ColorfulLogger
 	*******************************/
-	ColorfulLogger.create = function (config){
+	ColorfulLogger.Logger = function (config){
 		var stringUtility = ColorfulLogger.stringUtility;
 
 		config = config || {};

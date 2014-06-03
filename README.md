@@ -30,7 +30,7 @@ require.config({
 define([
 	'ColorfulLogger'
 ], function (ColorfulLogger) {
-	var logger = new ColorfulLogger.create();
+	var logger = new ColorfulLogger.Logger();
 
 	// a simple usage, not fun
 	logger.log('Welcome to Meld Trace Logger');

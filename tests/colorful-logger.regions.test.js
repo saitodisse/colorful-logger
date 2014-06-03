@@ -1,13 +1,13 @@
 var _ = require('lodash');
 var ColorfulLogger = require('../src/colorful-logger');
 var fakeConsole = require('./fake-console');
-var colorfulLogger = new ColorfulLogger.create({
+var colorfulLogger = new ColorfulLogger.Logger({
 	output: fakeConsole
 });
 
 module.exports = {
 	setUp: function (callback) {
-		colorfulLogger = new ColorfulLogger.create({
+		colorfulLogger = new ColorfulLogger.Logger({
 			output: fakeConsole
 		});
 

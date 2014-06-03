@@ -7,7 +7,7 @@ define([
 ], function (ColorfulLogger, Backbone, Todos, TodoView) {
 	'use strict';
 
-	var logger = new ColorfulLogger.create({
+	var logger = new ColorfulLogger.Logger({
 		ignorePattern: /^ignored/i
 	});
 
