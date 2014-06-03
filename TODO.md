@@ -8,7 +8,7 @@ meld-trace-logger
  - limit size (ok)
  - can disable CSS (ok)
  - set color automatically (ok)
- - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd
+ - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd (ok)
  - set ignore regex patterns
  
 ##MeldTraceLogger

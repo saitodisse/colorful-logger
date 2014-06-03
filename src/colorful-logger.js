@@ -51,7 +51,8 @@
 			'enabled': true,
 			'output': console,
 			'padString': ' ',
-			'enabledCss': true
+			'enabledCss': true,
+			'ignorePattern': undefined
 		};
 
 		defaults(config, defaultConfig);
@@ -90,6 +91,10 @@
 				message = this.truncOrPadMessage(opt, message);
 				fullMessage = message;
 				this.addCss(cssList, opt);
+			}
+
+			if(this.config.ignorePattern && this.config.ignorePattern.test(message)){
+				return false;
 			}
 
 			this.sendToOutput(opt, fullMessage, cssList);

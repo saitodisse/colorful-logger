@@ -138,4 +138,20 @@ module.exports = {
 		test.done();
 	},
 
+	'ignore log globally with regex': function(test) {
+		colorfulLogger.configure({
+			ignorePattern: /^ignore.*/i
+		});
+		colorfulLogger.log('this will be printed');
+		colorfulLogger.log('ignored line');
+		colorfulLogger.log('IgnOrE this too');
+		colorfulLogger.log('hello!');
+
+		test.equal(2, fakeConsole.logRecorder.length);
+		test.equal('this will be printed', fakeConsole.logRecorder[0].message);
+		test.equal('hello!', fakeConsole.logRecorder[1].message);
+		test.done();
+	},
+
+
 };
