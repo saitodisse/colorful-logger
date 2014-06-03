@@ -1,34 +1,32 @@
 /*global define*/
 define([
 	'ColorfulLogger',
-	'backbone',
-	'collections/todos',
-	'views/todos'
-], function (ColorfulLogger, Backbone, Todos, TodoView) {
+], function (ColorfulLogger) {
 	'use strict';
 
 	var logger = new ColorfulLogger.Logger({
 		ignorePattern: /^ignored/i
 	});
 
-	var LoggerConfiguration = function() {
-		
-		makeRainbow();
-
-		// a simple usage, not fun
-		logger.log({
-			message: ' Meld Trace Logger',
-			css: 'font-weight: bold; font-size: 10pt'
-		});
+	var LoggerExamples = function() {
+		var titleCss = 'font-weight: bold; font-size: 12pt';
 
 		makeRainbow();
+		logger.log({ message: ' Colorful Logger',	css: titleCss });
+		makeRainbow();
 
+		logger.log('');
+		logger.log({ message: '"table" like', css: titleCss });
 		makeRandom();
 		makeTable();
 		makeRandom();
 
+		logger.log('');
+		logger.log({ message: 'groups', css: titleCss });
 		makeGroups();
 
+		logger.log('');
+		logger.log({ message: 'ignore regex patterns',	css: titleCss });
 		logger.log({ message: 'simple message, not ignored' });
 		logger.log({ message: 'ignored console output' });
 
@@ -36,7 +34,7 @@ define([
 
 	var makeRainbow = function() {
 		// rainbow
-		var fontSize = 'font-size: 11pt';
+		var fontSize = 'font-size: 12pt';
 		logger.log(
 			[
 				{	message: '#',	css: 'color: #f80c12;' + fontSize },
@@ -60,10 +58,11 @@ define([
 		);
 	};
 
-	var makeRandom = function() {
+	var makeRandom = function(size) {
 		// rainbow
+		size = size || 65;
 		var messages = [];
-		for (var i = 0; i < 65; i++) {
+		for (var i = 0; i < size; i++) {
 			messages.push({	message: '*',	randomColor: true });
 		};
 		logger.log(messages);
@@ -118,19 +117,19 @@ define([
 
 	var makeGroups = function() {
 		logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });
-			makeRandom();
+			makeRandom(7);
 			logger.log({ message: 'Group 2', logType: 'groupCollapsed', randomColor: true });
-				makeRandom();
+				makeRandom(7);
 				logger.log({ message: 'Group 3', logType: 'groupCollapsed', randomColor: true });
-					makeRandom();
+					makeRandom(7);
 					logger.log({ message: 'Group 4', logType: 'groupCollapsed', randomColor: true });
 
-						makeRandom();
+						makeRandom(31);
 						logger.log({
-							message: 'this is inside',
+							message: 'This message is inside 4 groups',
 							randomColor: true
 						});
-						makeRandom();
+						makeRandom(31);
 
 					logger.log({ logType: 'groupEnd' });
 				logger.log({ logType: 'groupEnd' });
@@ -139,5 +138,5 @@ define([
 
 	};
 
-	return LoggerConfiguration;
+	return LoggerExamples;
 });
