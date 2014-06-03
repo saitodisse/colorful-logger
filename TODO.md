@@ -9,7 +9,7 @@ meld-trace-logger
  - can disable CSS (ok)
  - set color automatically (ok)
  - log inside groups: groupCollapsed(groupName, groupColor) and groupEnd (ok)
- - set ignore regex patterns
+ - set ignore regex patterns (ok)
  
 ##MeldTraceLogger
  - onCall

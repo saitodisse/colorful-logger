@@ -7,7 +7,9 @@ define([
 ], function (ColorfulLogger, Backbone, Todos, TodoView) {
 	'use strict';
 
-	var logger = new ColorfulLogger.create();
+	var logger = new ColorfulLogger.create({
+		ignorePattern: /^ignored/i
+	});
 
 	var LoggerConfiguration = function() {
 		
@@ -26,6 +28,9 @@ define([
 		makeRandom();
 
 		makeGroups();
+
+		logger.log({ message: 'simple message, not ignored' });
+		logger.log({ message: 'ignored console output' });
 
 	};
 
@@ -113,14 +118,19 @@ define([
 
 	var makeGroups = function() {
 		logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });
+			makeRandom();
 			logger.log({ message: 'Group 2', logType: 'groupCollapsed', randomColor: true });
+				makeRandom();
 				logger.log({ message: 'Group 3', logType: 'groupCollapsed', randomColor: true });
+					makeRandom();
 					logger.log({ message: 'Group 4', logType: 'groupCollapsed', randomColor: true });
-						
+
+						makeRandom();
 						logger.log({
 							message: 'this is inside',
 							randomColor: true
 						});
+						makeRandom();
 
 					logger.log({ logType: 'groupEnd' });
 				logger.log({ logType: 'groupEnd' });
