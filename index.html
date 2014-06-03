@@ -31,101 +31,27 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="colorful-logger" class="anchor" href="#colorful-logger"><span class="octicon octicon-link"></span></a>Colorful Logger</h3>
-
-<h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>usage</h2>
-
-<h3>
-<a name="install-with-bower" class="anchor" href="#install-with-bower"><span class="octicon octicon-link"></span></a>install with bower</h3>
-
-<pre><code>bower install git@github.com:saitodisse/colorful-logger.git --save
-</code></pre>
-
-<h3>
-<a name="configure-amd-requirejs" class="anchor" href="#configure-amd-requirejs"><span class="octicon octicon-link"></span></a>configure AMD (require.js)</h3>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-    <span class="c1">// The shim config allows us to configure dependencies for</span>
-    <span class="c1">// scripts that do not call define() to register a module</span>
-    <span class="nx">shim</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">ColorfulLogger</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">deps</span><span class="o">:</span> <span class="p">[</span><span class="s1">'lodash'</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">lodash</span><span class="o">:</span> <span class="s1">'../bower_components/lodash/dist/lodash'</span><span class="p">,</span>
-        <span class="nx">ColorfulLogger</span><span class="o">:</span> <span class="s1">'../bower_components/colorful-logger/src/colorful-logger'</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</pre></div>
-
-<h3>
-<a name="call-in-your-code" class="anchor" href="#call-in-your-code"><span class="octicon octicon-link"></span></a>call in your code</h3>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">define</span><span class="p">([</span>
-    <span class="s1">'ColorfulLogger'</span>
-<span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ColorfulLogger</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ColorfulLogger</span><span class="p">.</span><span class="nx">Logger</span><span class="p">();</span>
-
-    <span class="c1">// a simple usage, not fun</span>
-    <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Welcome to Colorful Logger'</span><span class="p">);</span>
-
-    <span class="c1">// here it is a green colored message</span>
-    <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span>
-        <span class="nx">message</span><span class="o">:</span> <span class="s1">'this message must be green'</span><span class="p">,</span>
-        <span class="nx">css</span><span class="o">:</span> <span class="s1">'color: #0A0'</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</pre></div>
-
-<h2>
-<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>tests</h2>
-
-<h3>
-<a name="pre-requirements" class="anchor" href="#pre-requirements"><span class="octicon octicon-link"></span></a>pre-requirements</h3>
-
-<pre><code>sudo npm i jshint nodeunit supervisor grunt-cli -g
-</code></pre>
-
-<h3>
-<a name="test--jshint" class="anchor" href="#test--jshint"><span class="octicon octicon-link"></span></a>test + jshint</h3>
-
-<pre><code>grunt
-</code></pre>
-
-<h3>
-<a name="watch-for-changes-test--jshint" class="anchor" href="#watch-for-changes-test--jshint"><span class="octicon octicon-link"></span></a>watch for changes: test + jshint</h3>
-
-<pre><code>grunt test
-</code></pre>
-
-<h3>
-<a name="nodeunit--node-debug" class="anchor" href="#nodeunit--node-debug"><span class="octicon octicon-link"></span></a>nodeunit + node-debug</h3>
-
-<p>from: <a href="http://stackoverflow.com/questions/16652358/how-to-debug-nodeunit-using-node-inspector">http://stackoverflow.com/questions/16652358/how-to-debug-nodeunit-using-node-inspector</a></p>
-
-<pre lang="shell"><code>npm -g install supervisor node-inspector
-
-# console 1: supervisor restarts node-inspector when it quits, ignores file changes
-supervisor -i . -x node-inspector .
-
-# console 2
-supervisor --debug-brk -- `which nodeunit` tests/
-</code></pre>
+        <ul>
+          <li>
+            press <STRONG>F12</STRONG> now to see the colored log messages
+          </li>
+          <li>
+            see the code that generate that messages: <a href="https://github.com/saitodisse/colorful-logger/blob/master/example/js/logger-examples.js">logger-examples.js</a>
+          </li>
+          <li>
+            instalation and usage details at Github: <a href="https://github.com/saitodisse/colorful-logger">source</a>
+          </li>
+        </ul>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Colorful Logger maintained by <a href="https://github.com/saitodisse">saitodisse</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">maintained by <a href="https://github.com/saitodisse">saitodisse</a></p>
       </footer>
     </div>
 
-    
-
+    <script data-main="javascripts/main" src="bower_components/requirejs/require.js"></script>
   </body>
 </html>

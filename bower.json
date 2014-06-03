@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "colorful-logger": "git@github.com:saitodisse/colorful-logger.git"
   }
 }

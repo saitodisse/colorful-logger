@@ -6,8 +6,18 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          // requirejs
-          {src: ['bower_components/requirejs/require.js'], dest: 'javascripts/require.js'},
+          {
+            src: ['bower_components/requirejs/require.js'],
+            dest: 'javascripts/vendor/require.js'
+          },
+          {
+            src: ['bower_components/lodash/dist/lodash.js'],
+            dest: 'javascripts/vendor/lodash.js'
+          },
+          {
+            src: ['bower_components/colorful-logger/src/colorful-logger.js'],
+            dest: 'javascripts/colorful-logger.js'
+          },
         ]
       }
     }
