@@ -1,18 +1,19 @@
-##install dependencies
+#Example
+###install dependencies
 ```
 bower i
 ```
 
-##run server
-###linux
+###run server
+####linux
 ```
 ./linux-python-server.sh
 ```
 
-###windows
+####windows
 ```
 windows-python3-start.bat
 ```
 
-##open page
-open http://localhost:8000
+###open page
+[http://localhost:8000](http://localhost:8000)
