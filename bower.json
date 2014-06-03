@@ -1,7 +1,7 @@
 {
-  "name": "meld-trace-logger",
-  "version": "0.0.1",
-  "homepage": "https://github.com/saitodisse/meld-trace-logger",
+  "name": "colorful-logger",
+  "version": "0.1.0",
+  "homepage": "https://github.com/saitodisse/colorful-logger",
   "authors": [
     "Julio Makdisse Saito <saitodisse@gmail.com>"
   ],
@@ -12,10 +12,9 @@
   ],
   "keywords": [
     "console",
+    "console.log",
     "log",
-    "trace",
-    "aop",
-    "meld"
+    "colorful"
   ],
   "license": "MIT",
   "dependencies"  : {
@@ -25,7 +24,6 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "tests",
-    "examples"
+    "tests"
   ]
 }

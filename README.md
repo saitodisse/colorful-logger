@@ -1,11 +1,11 @@
-#meld-trace-logger 
-###[beta 0.0.1]
-meld + trace + colorful console.log
+#colorful-logger 
+###[beta 0.1.0]
+colorful console.log
 
 ##AMD (require.js)
 ###install with bower
 ```
-bower install git@github.com:saitodisse/meld-trace-logger.git --save
+bower install git@github.com:saitodisse/colorful-logger.git --save
 ```
 
 ###configure
@@ -20,7 +20,7 @@ require.config({
 	},
 	paths: {
 		lodash: '../bower_components/lodash/dist/lodash',
-		ColorfulLogger: '../bower_components/meld-trace-logger/src/colorful-logger'
+		ColorfulLogger: '../bower_components/colorful-logger/src/colorful-logger'
 	}
 });
 ```

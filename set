@@ -1,6 +1,0 @@
-[1;32m :: git add . -A[0m
-[1;32m :: git commit -m'todo - a color to the main message'[0m
-[master 885fbe4] todo - a color to the main message
- 4 files changed, 22 insertions(+), 3 deletions(-)
- create mode 100644 set
-[1;32m :: git push origin master[0m

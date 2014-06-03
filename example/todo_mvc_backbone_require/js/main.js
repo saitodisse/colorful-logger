@@ -33,7 +33,7 @@ require.config({
 		text: '../bower_components/requirejs-text/text',
 
 		lodash: '../bower_components/lodash/dist/lodash',
-		ColorfulLogger: '../bower_components/meld-trace-logger/src/colorful-logger'
+		ColorfulLogger: '../bower_components/colorful-logger/src/colorful-logger'
 	}
 });
 

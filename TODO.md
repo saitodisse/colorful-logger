@@ -1,4 +1,4 @@
-meld-trace-logger
+colorful-logger
 =================
 
 #TODO
