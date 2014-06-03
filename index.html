@@ -35,16 +35,16 @@
 <a name="colorful-logger" class="anchor" href="#colorful-logger"><span class="octicon octicon-link"></span></a>Colorful Logger</h3>
 
 <h2>
-<a name="amd-requirejs" class="anchor" href="#amd-requirejs"><span class="octicon octicon-link"></span></a>AMD (require.js)</h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>usage</h2>
 
 <h3>
 <a name="install-with-bower" class="anchor" href="#install-with-bower"><span class="octicon octicon-link"></span></a>install with bower</h3>
 
-<pre><code>bower install git@github.com:saitodisse/meld-trace-logger.git --save
+<pre><code>bower install git@github.com:saitodisse/colorful-logger.git --save
 </code></pre>
 
 <h3>
-<a name="configure" class="anchor" href="#configure"><span class="octicon octicon-link"></span></a>configure</h3>
+<a name="configure-amd-requirejs" class="anchor" href="#configure-amd-requirejs"><span class="octicon octicon-link"></span></a>configure AMD (require.js)</h3>
 
 <div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
     <span class="c1">// The shim config allows us to configure dependencies for</span>
@@ -56,13 +56,13 @@
     <span class="p">},</span>
     <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">lodash</span><span class="o">:</span> <span class="s1">'../bower_components/lodash/dist/lodash'</span><span class="p">,</span>
-        <span class="nx">ColorfulLogger</span><span class="o">:</span> <span class="s1">'../bower_components/meld-trace-logger/src/colorful-logger'</span>
+        <span class="nx">ColorfulLogger</span><span class="o">:</span> <span class="s1">'../bower_components/colorful-logger/src/colorful-logger'</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 
 <h3>
-<a name="call" class="anchor" href="#call"><span class="octicon octicon-link"></span></a>call</h3>
+<a name="call-in-your-code" class="anchor" href="#call-in-your-code"><span class="octicon octicon-link"></span></a>call in your code</h3>
 
 <div class="highlight highlight-javascript"><pre><span class="nx">define</span><span class="p">([</span>
     <span class="s1">'ColorfulLogger'</span>
@@ -70,7 +70,7 @@
     <span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ColorfulLogger</span><span class="p">.</span><span class="nx">Logger</span><span class="p">();</span>
 
     <span class="c1">// a simple usage, not fun</span>
-    <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Welcome to Meld Trace Logger'</span><span class="p">);</span>
+    <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Welcome to Colorful Logger'</span><span class="p">);</span>
 
     <span class="c1">// here it is a green colored message</span>
     <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span>
