@@ -1,0 +1,27 @@
+{
+  "name": "colorful-logger",
+  "version": "0.1.0",
+  "description": "colorful console gh-pages",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/saitodisse/colorful-logger.git"
+  },
+  "keywords": [
+    "color",
+    "colorful",
+    "logger",
+    "console.log"
+  ],
+  "author": "Julio Saito",
+  "private": true,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saitodisse/colorful-logger/issues"
+  },
+  "homepage": "https://github.com/saitodisse/colorful-logger",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.5.0"
+  }
+}
