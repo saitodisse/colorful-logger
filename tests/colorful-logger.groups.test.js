@@ -64,4 +64,37 @@ module.exports = {
 		test.done();
 	},
 
+	'create a complex group': function(test) {
+		colorfulLogger.log([
+			{
+				logType: 'groupCollapsed',
+				message: 'SomeObj',
+				css: 'color: blue',
+				size: 10
+			},
+  		{
+  			message: 'addNumbers'
+  		}
+		]);
+
+		colorfulLogger.log({
+			message: 'this is inside'
+		});
+
+		colorfulLogger.log({
+			logType: 'groupEnd'
+		});
+
+		test.equal('groupCollapsed', fakeConsole.logRecorder[0].methodName);
+		test.equal('%cSomeObj   addNumbers', fakeConsole.logRecorder[0].message);
+		test.equal('color: blue', fakeConsole.logRecorder[0].cssList[0]);
+
+		test.equal('log', fakeConsole.logRecorder[1].methodName);
+		test.equal('this is inside',      fakeConsole.logRecorder[1].message);
+
+		test.equal('groupEnd', fakeConsole.logRecorder[2].methodName);
+
+		test.done();
+	},
+
 };

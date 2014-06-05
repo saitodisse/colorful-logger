@@ -158,6 +158,10 @@
 
 		this.sendToOutput = function(opt, message, cssList) {
 			var localConsole = this.config.output;
+			
+			if(opt && _.isArray(opt)){
+				opt = opt[0];
+			}
 			var logtype = (opt && opt.logType) || 'log';
 
 			if(_.isUndefined(cssList) || cssList.length === 0){
