@@ -121,4 +121,21 @@ module.exports = {
 		test.done();
 	},
 
+	'first message has CSS but not the second, ugly thing to do': function(test) {
+		colorfulLogger.log([
+			{
+				message: 'SomeObj',
+				css: 'color: blue',
+				size: 10
+			},
+  		{
+  			message: 'addNumbers'
+  		}
+  	]);
+
+		test.equal('%cSomeObj   addNumbers', fakeConsole.logRecorder[0].message);
+		test.equal('color: blue', fakeConsole.logRecorder[0].cssList[0]);
+		test.done();
+	},
+
 };

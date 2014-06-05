@@ -82,6 +82,7 @@
 
 					message = this.getMessage(optItem);
 					message = this.truncOrPadMessage(optItem, message);
+					message = this.putCssAnchor(optItem, message);
 					fullMessage += message;
 					this.addCss(cssList, optItem);
 				}
@@ -89,6 +90,7 @@
 			else{
 				message = this.getMessage(opt);
 				message = this.truncOrPadMessage(opt, message);
+				message = this.putCssAnchor(opt, message);
 				fullMessage = message;
 				this.addCss(cssList, opt);
 			}
@@ -100,6 +102,40 @@
 			this.sendToOutput(opt, fullMessage, cssList);
 			
 			return true;
+		};
+
+		this.getMessage = function(opt) {
+			var message = '';
+			if(_.isObject(opt)){
+				message = opt.message;
+			}
+			else if(_.isString(opt)){
+				message = opt;
+			}
+
+			return message;
+		};
+
+		this.truncOrPadMessage = function(opt, message) {
+			if(opt.size){
+				var isSmaller = message.length <= opt.size;
+				var padString = opt.padString || this.config.padString;
+				if(isSmaller){
+					return stringUtility.rpad(message, padString, opt.size);
+				}
+				else{
+					return stringUtility.truncate(message, opt.size);
+				}
+			}
+			return message;
+		};
+
+		this.putCssAnchor = function(opt, message) {
+			var hasCss = (!_.isUndefined(opt.css) || opt.randomColor);
+			if(hasCss && this.config.enabledCss){
+				return '%c' + message;
+			}
+			return message;
 		};
 
 		this.addCss = function (cssList, opt) {
@@ -118,37 +154,6 @@
 				}
 				cssList.push(opt.css);
 			}
-		};
-
-		this.getMessage = function(opt) {
-			var message = '';
-			if(_.isObject(opt)){
-				message = opt.message;
-			}
-			else if(_.isString(opt)){
-				message = opt;
-			}
-
-			var hasCss = (!_.isUndefined(opt.css) || opt.randomColor);
-			if(hasCss && this.config.enabledCss){
-				message = '%c' + message;
-			}
-
-			return message;
-		};
-
-		this.truncOrPadMessage = function(opt, message) {
-			if(opt.size){
-				var isSmaller = message.length <= opt.size;
-				var padString = opt.padString || this.config.padString;
-				if(isSmaller){
-					return stringUtility.rpad(message, padString, opt.size);
-				}
-				else{
-					return stringUtility.truncate(message, opt.size);
-				}
-			}
-			return message;
 		};
 
 		this.sendToOutput = function(opt, message, cssList) {
