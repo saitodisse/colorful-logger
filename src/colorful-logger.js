@@ -7,9 +7,14 @@
     });
 
   // Node.js
-  } else if (typeof exports !== 'undefined') {
+  }
+  else if (typeof exports !== 'undefined') {
     var _ = require('lodash');
     factory(root, exports, _);
+  }
+  // Browser globals
+  else {
+    root.ColorfulLogger = factory(root, (root.ColorfulLogger = {}), root._);
   }
 
 }(this, function(root, ColorfulLogger, _) {

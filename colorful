@@ -1,9 +1,0 @@
-[1;32m :: git add . -A[0m
-[1;32m :: git commit -m'correct misspelling colorfull -'[0m
-[master b7cb4e7] correct misspelling colorfull -
- 12 files changed, 56 insertions(+), 45 deletions(-)
- create mode 100644 TODO.md
- create mode 100644 colorful
- rename src/{colorfull-logger.js => colorful-logger.js} (90%)
- rename tests/{colorfull-logger.test.js => colorful-logger.test.js} (60%)
-[1;32m :: git push origin master[0m
