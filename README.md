@@ -1,3 +1,5 @@
+by: [saitodisse](http://saitodisse.github.io/)
+
 #colorful-logger 
 ###[beta 0.1.0]
 colorful console.log
