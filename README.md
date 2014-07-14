@@ -1,16 +1,19 @@
 by: [saitodisse](http://saitodisse.github.io/)
 
 #colorful-logger 
-###[beta 0.1.0]
+###[0.1.1 (beta)]
 colorful console.log
 
-##AMD (require.js)
-###install with bower
+###bower
 ```
-bower install git@github.com:saitodisse/colorful-logger.git --save
+bower install colorful-logger --save
+```
+###npm
+```
+npm install colorful-logger --save
 ```
 
-###configure
+###configure on AMD
 ```javascript
 require.config({
 	// The shim config allows us to configure dependencies for
@@ -27,7 +30,7 @@ require.config({
 });
 ```
 
-###call
+####call
 ```javascript
 define([
 	'ColorfulLogger'
@@ -61,8 +64,15 @@ grunt
 grunt test
 ```
 
-###nodeunit + node-debug
+###debuging 
+
+
+nodeunit + node-debug
+
+
 from: http://stackoverflow.com/questions/16652358/how-to-debug-nodeunit-using-node-inspector
+
+
 ```shell
 npm -g install supervisor node-inspector
 
