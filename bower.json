@@ -1,11 +1,11 @@
 {
   "name": "colorful-logger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/saitodisse/colorful-logger",
   "authors": [
     "Julio Makdisse Saito <saitodisse@gmail.com>"
   ],
-  "description": "trace and render logs with colors",
+  "description": "colorful console.log",
   "main": "index.js",
   "moduleType": [
     "amd"
