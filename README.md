@@ -49,38 +49,12 @@ define([
 ```
 
 ##tests
-###pre-requirements
+###install buster
 ```
-sudo npm i jshint nodeunit supervisor grunt-cli -g
-```
-
-###test + jshint
-```
-grunt
+sudo npm i buster -g
 ```
 
-###watch for changes: test + jshint
+###run buster-test
 ```
-grunt test
+buster-test
 ```
-
-###debuging 
-
-
-nodeunit + node-debug
-
-
-from: http://stackoverflow.com/questions/16652358/how-to-debug-nodeunit-using-node-inspector
-
-
-```shell
-npm -g install supervisor node-inspector
-
-# console 1: supervisor restarts node-inspector when it quits, ignores file changes
-supervisor -i . -x node-inspector .
-
-# console 2
-supervisor --debug-brk -- `which nodeunit` tests/
-```
-
-
