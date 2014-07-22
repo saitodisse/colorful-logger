@@ -9,15 +9,12 @@
  * @author Julio Makdisse Saito (saitodisse@gmail.com)
  */
 
- var config = module.exports;
+var _ = require('lodash');
+var fakePreElement = {};
+fakePreElement.appendRecorder = [];
 
-config['Mogger Tests'] = {
-    environment: 'node',  // or 'browser'
-    rootPath: '../',
-    sources: [
-        'src/colorful-logger.js'
-    ],
-    tests: [
-        'test/*.test.js'
-    ]
+fakePreElement.append = function(text) {
+	fakePreElement.appendRecorder.push(text);
 };
+
+module.exports = fakePreElement;
