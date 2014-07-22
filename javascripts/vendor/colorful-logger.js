@@ -1,4 +1,15 @@
-(function(root, factory) {
+/** @license MIT License (c) Copyright (c) 2014 Julio Makdisse Saito */
+
+/**
+ * ColorfulLogger
+ *
+ * Licensed under the MIT License at:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @author Julio Makdisse Saito (saitodisse@gmail.com)
+ */
+
+ (function(root, factory) {
 
   // AMD
   if (typeof define === 'function' && define.amd) {
@@ -7,9 +18,14 @@
     });
 
   // Node.js
-  } else if (typeof exports !== 'undefined') {
+  }
+  else if (typeof exports !== 'undefined') {
     var _ = require('lodash');
     factory(root, exports, _);
+  }
+  // Browser globals
+  else {
+    root.ColorfulLogger = factory(root, (root.ColorfulLogger = {}), root._);
   }
 
 }(this, function(root, ColorfulLogger, _) {
@@ -82,6 +98,7 @@
 
 					message = this.getMessage(optItem);
 					message = this.truncOrPadMessage(optItem, message);
+					message = this.putCssAnchor(optItem, message);
 					fullMessage += message;
 					this.addCss(cssList, optItem);
 				}
@@ -89,6 +106,7 @@
 			else{
 				message = this.getMessage(opt);
 				message = this.truncOrPadMessage(opt, message);
+				message = this.putCssAnchor(opt, message);
 				fullMessage = message;
 				this.addCss(cssList, opt);
 			}
@@ -100,6 +118,40 @@
 			this.sendToOutput(opt, fullMessage, cssList);
 			
 			return true;
+		};
+
+		this.getMessage = function(opt) {
+			var message = '';
+			if(_.isObject(opt)){
+				message = opt.message;
+			}
+			else if(_.isString(opt)){
+				message = opt;
+			}
+
+			return message;
+		};
+
+		this.truncOrPadMessage = function(opt, message) {
+			if(opt.size){
+				var isSmaller = message.length <= opt.size;
+				var padString = opt.padString || this.config.padString;
+				if(isSmaller){
+					return stringUtility.rpad(message, padString, opt.size);
+				}
+				else{
+					return stringUtility.truncate(message, opt.size);
+				}
+			}
+			return message;
+		};
+
+		this.putCssAnchor = function(opt, message) {
+			var hasCss = (!_.isUndefined(opt.css) || opt.randomColor);
+			if(hasCss && this.config.enabledCss){
+				return '%c' + message;
+			}
+			return message;
 		};
 
 		this.addCss = function (cssList, opt) {
@@ -120,39 +172,12 @@
 			}
 		};
 
-		this.getMessage = function(opt) {
-			var message = '';
-			if(_.isObject(opt)){
-				message = opt.message;
-			}
-			else if(_.isString(opt)){
-				message = opt;
-			}
-
-			var hasCss = (!_.isUndefined(opt.css) || opt.randomColor);
-			if(hasCss && this.config.enabledCss){
-				message = '%c' + message;
-			}
-
-			return message;
-		};
-
-		this.truncOrPadMessage = function(opt, message) {
-			if(opt.size){
-				var isSmaller = message.length <= opt.size;
-				var padString = opt.padString || this.config.padString;
-				if(isSmaller){
-					return stringUtility.rpad(message, padString, opt.size);
-				}
-				else{
-					return stringUtility.truncate(message, opt.size);
-				}
-			}
-			return message;
-		};
-
 		this.sendToOutput = function(opt, message, cssList) {
 			var localConsole = this.config.output;
+			
+			if(opt && _.isArray(opt)){
+				opt = opt[0];
+			}
 			var logtype = (opt && opt.logType) || 'log';
 
 			if(_.isUndefined(cssList) || cssList.length === 0){

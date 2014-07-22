@@ -16,7 +16,15 @@ module.exports = function(grunt) {
           },
           {
             src: ['bower_components/colorful-logger/src/colorful-logger.js'],
-            dest: 'javascripts/colorful-logger.js'
+            dest: 'javascripts/vendor/colorful-logger.js'
+          },
+          {
+            src: ['bower_components/colorful-logger/src/html-console.js'],
+            dest: 'javascripts/vendor/html-console.js'
+          },
+          {
+            src: ['bower_components/jquery/dist/jquery.js'],
+            dest: 'javascripts/vendor/jquery.js'
           },
         ]
       }

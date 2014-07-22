@@ -1,11 +1,16 @@
 /*global define*/
 define([
   'ColorfulLogger',
-], function (ColorfulLogger) {
+  'htmlConsole',
+  'jquery'
+], function (ColorfulLogger, htmlConsole, $) {
   'use strict';
 
+  htmlConsole.setHtmlOutput($('#localHtmlConsole'));
+
   var logger = new ColorfulLogger.Logger({
-    ignorePattern: /^ignored/i
+    ignorePattern: /^ignored/i,
+    output: htmlConsole
   });
 
   var LoggerExamples = function() {

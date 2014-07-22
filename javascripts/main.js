@@ -5,11 +5,16 @@ require.config({
 	shim: {
 		ColorfulLogger: {
 			deps: ['lodash']
+		},
+		htmlConsole: {
+			deps: ['lodash']
 		}
 	},
 	paths: {
 		lodash: 'vendor/lodash',
-		ColorfulLogger: 'colorful-logger'
+		ColorfulLogger: 'vendor/colorful-logger',
+		htmlConsole: 'vendor/html-console',
+		jquery: 'vendor/jquery'
 	}
 });
 

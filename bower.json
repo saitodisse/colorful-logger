@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.14",
-    "colorful-logger": "git@github.com:saitodisse/colorful-logger.git"
+    "colorful-logger": "git@github.com:saitodisse/colorful-logger.git",
+    "jquery": "~2.1.1"
   }
 }
