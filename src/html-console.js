@@ -92,21 +92,42 @@
   // console methods
   // ------------
   htmlConsole.log = function() {
-    var args = slice.call(arguments);
+    var args = slice.call(arguments),
+        parts,
+        i,
+        afterSymbol,
+        cssStyle,
+        finalString = ''
+    ;
 
     // send to build-in browser console
     this.getLocalConsole().log.apply(this.getLocalConsole(), args);
 
     // //send to html output
     if(_.isString(args[0])){
-      this.getHtmlOutput().append(args[0].replace(/\%c/gi, '') + '\n');
+      parts = args[0].split('%c');
+      if(parts.length > 1){
+        for (i = 0; i < parts.length; i++) {
+          //  Some %cText ==> the 'Text' part
+          afterSymbol = parts[i+1];
+
+          //  console.log('Some %cText', 'color:blue') ==> the 'color:blue' configuration
+          cssStyle = args[i+1];
+
+          if(!_.isUndefined(afterSymbol)){
+            finalString += '<span style="'+ cssStyle +'">';
+            finalString += afterSymbol;
+            finalString += '</span>';
+          }
+        };
+        finalString += '\n';
+        this.getHtmlOutput().append(finalString);
+      }
+      else{
+        this.getHtmlOutput().append(args[0] + '\n');
+      }
+
     }
-    // var no_CSS_message = args[0].toString().replace(/\%c/gi, '');
-    // if(_.isFunction(args[0])){
-    //  no_CSS_message = 'FUNCtion';
-    // }
-    // this.getHtmlOutput().append(no_CSS_message);
-    // this.getHtmlOutput().append('\n');
   };
 
 

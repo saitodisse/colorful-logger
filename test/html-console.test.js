@@ -47,7 +47,13 @@ buster.testCase('HTML console:', {
 	'append a span with a style': function(){
 		htmlConsole.log('%cSOME', 'color: red');
 
-		equals('<span style="color: red">SOME</span>', fakePreElement.appendRecorder.length);
+		equals('<span style="color: red">SOME</span>\n', fakePreElement.appendRecorder[0]);
+	},
+
+	'two style at the same log': function(){
+		htmlConsole.log('%cSOME %cLOG', 'color: red', 'color: blue');
+
+		equals('<span style="color: red">SOME </span><span style="color: blue">LOG</span>\n', fakePreElement.appendRecorder[0]);
 	},
 
 });
