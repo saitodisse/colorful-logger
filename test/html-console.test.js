@@ -56,4 +56,15 @@ buster.testCase('HTML console:', {
 		equals('<span style="color: red">SOME </span><span style="color: blue">LOG</span>\n', fakePreElement.appendRecorder[0]);
 	},
 
+	'groupCollapsed creates 2 divs': function(){
+		htmlConsole.groupCollapsed('SOME LOG');
+
+		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">\n', fakePreElement.appendRecorder[0]);
+	},
+
+	'groupEnd closes 2 divs': function(){
+		htmlConsole.groupEnd();
+		equals('</div></div>\n', fakePreElement.appendRecorder[0]);
+	},
+
 });

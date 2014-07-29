@@ -45,6 +45,35 @@
     return this.localConsole || console;
   };
 
+  htmlConsole.createColoredSpan = function(args) {
+    var parts = args[0].split('%c'),
+        i,
+        afterSymbol,
+        cssStyle,
+        finalString = ''
+    ;
+
+    if(parts.length > 1){
+      for (i = 0; i < parts.length; i++) {
+        //  Some %cText ==> the 'Text' part
+        afterSymbol = parts[i+1];
+
+        //  console.log('Some %cText', 'color:blue') ==> the 'color:blue' configuration
+        cssStyle = args[i+1];
+
+        if(!_.isUndefined(afterSymbol)){
+          finalString += '<span style="'+ cssStyle +'">';
+          finalString += afterSymbol;
+          finalString += '</span>';
+        }
+      }
+      return(finalString);
+    }
+    else{
+      return(args[0]);
+    }
+  };
+
 
 
   // // ------------
@@ -93,11 +122,7 @@
   // ------------
   htmlConsole.log = function() {
     var args = slice.call(arguments),
-        parts,
-        i,
-        afterSymbol,
-        cssStyle,
-        finalString = ''
+        outputElement = this.getHtmlOutput()
     ;
 
     // send to build-in browser console
@@ -105,28 +130,7 @@
 
     // //send to html output
     if(_.isString(args[0])){
-      parts = args[0].split('%c');
-      if(parts.length > 1){
-        for (i = 0; i < parts.length; i++) {
-          //  Some %cText ==> the 'Text' part
-          afterSymbol = parts[i+1];
-
-          //  console.log('Some %cText', 'color:blue') ==> the 'color:blue' configuration
-          cssStyle = args[i+1];
-
-          if(!_.isUndefined(afterSymbol)){
-            finalString += '<span style="'+ cssStyle +'">';
-            finalString += afterSymbol;
-            finalString += '</span>';
-          }
-        };
-        finalString += '\n';
-        this.getHtmlOutput().append(finalString);
-      }
-      else{
-        this.getHtmlOutput().append(args[0] + '\n');
-      }
-
+      outputElement.append(htmlConsole.createColoredSpan(args) + '\n');
     }
   };
 
@@ -162,21 +166,36 @@
 
 
   htmlConsole.groupCollapsed = function() {
-    var args = slice.call(arguments);
+    var args = slice.call(arguments),
+        outputElement = this.getHtmlOutput(),
+        finalString = ''
+    ;
+
+    // send to build-in browser console
     this.getLocalConsole().groupCollapsed.apply(this.getLocalConsole(), args);
 
-    //send to html output
-    var no_CSS_message;
-    if(typeof args[0] !== 'undefined'){
-      no_CSS_message = args[0].toString().replace(/\%c/gi, '');
+    // send to html output
+    if(_.isString(args[0])){
+
+      finalString =  '<div class="gc"><div class="gc_title">';
+      finalString += htmlConsole.createColoredSpan(args);
+      finalString +=  '</div><div class="gc_body">';
+      finalString += '\n';
+
+      outputElement.append(finalString);
     }
-    this.getHtmlOutput().append('<div class="colapse">' + no_CSS_message + '</div>');
+
   };
 
 
   htmlConsole.groupEnd = function() {
-    var args = slice.call(arguments);
-    this.getLocalConsole().groupEnd.apply(this.getLocalConsole(), args);
+    var outputElement = this.getHtmlOutput();
+
+    // send to build-in browser console
+    this.getLocalConsole().groupEnd.apply(this.getLocalConsole());
+
+    // send to html output
+    outputElement.append('</div></div>\n');
   };
 
 
