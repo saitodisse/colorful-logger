@@ -130,7 +130,7 @@
 
     // //send to html output
     if(_.isString(args[0])){
-      outputElement.innerHTML = htmlConsole.createColoredSpan(args) + '\n';
+      outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
     }
   };
 
@@ -182,7 +182,7 @@
       finalString +=  '</div><div class="gc_body">';
       finalString += '\n';
 
-      outputElement.innerHTML = finalString;
+      outputElement.innerHTML += finalString;
     }
 
   };
@@ -195,7 +195,7 @@
     this.getLocalConsole().groupEnd.apply(this.getLocalConsole());
 
     // send to html output
-    outputElement.innerHTML = '</div></div>\n';
+    outputElement.innerHTML += '</div></div>\n';
   };
 
 
