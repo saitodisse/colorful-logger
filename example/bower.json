@@ -1,8 +1,0 @@
-{
-  "name": "colorful-logger example",
-  "version": "0.1.0",
-  "dependencies": {
-    "requirejs": "~2.1.5",
-    "colorful-logger": "git@github.com:saitodisse/colorful-logger.git"
-  }
-}
