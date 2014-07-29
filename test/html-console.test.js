@@ -27,7 +27,7 @@ buster.testCase('HTML console:', {
   setUp: function () {
 		//cleaning mocks
 		fakeConsole.logRecorder = [];
-		fakePreElement.appendRecorder = [];
+		fakePreElement.innerHTML = '';
 
 	},
 
@@ -35,36 +35,36 @@ buster.testCase('HTML console:', {
 	},
 
 	'when log is called, append some text': function(){
-		equals(0, fakePreElement.appendRecorder.length);
+		equals(0, fakePreElement.innerHTML.length);
 		equals(0, fakeConsole.logRecorder.length);
 
 		htmlConsole.log('SOME TEXT');
 		
-		equals(1, fakePreElement.appendRecorder.length);
+		equals(true, fakePreElement.innerHTML.length > 0);
 		equals(1, fakeConsole.logRecorder.length);
 	},
 
 	'append a span with a style': function(){
 		htmlConsole.log('%cSOME', 'color: red');
 
-		equals('<span style="color: red">SOME</span>\n', fakePreElement.appendRecorder[0]);
+		equals('<span style="color: red">SOME</span>\n', fakePreElement.innerHTML);
 	},
 
 	'two style at the same log': function(){
 		htmlConsole.log('%cSOME %cLOG', 'color: red', 'color: blue');
 
-		equals('<span style="color: red">SOME </span><span style="color: blue">LOG</span>\n', fakePreElement.appendRecorder[0]);
+		equals('<span style="color: red">SOME </span><span style="color: blue">LOG</span>\n', fakePreElement.innerHTML);
 	},
 
 	'groupCollapsed creates 2 divs': function(){
 		htmlConsole.groupCollapsed('SOME LOG');
 
-		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">\n', fakePreElement.appendRecorder[0]);
+		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">\n', fakePreElement.innerHTML);
 	},
 
 	'groupEnd closes 2 divs': function(){
 		htmlConsole.groupEnd();
-		equals('</div></div>\n', fakePreElement.appendRecorder[0]);
+		equals('</div></div>\n', fakePreElement.innerHTML);
 	},
 
 });

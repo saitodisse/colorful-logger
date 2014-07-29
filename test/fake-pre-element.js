@@ -10,11 +10,9 @@
  */
 
 var _ = require('lodash');
-var fakePreElement = {};
-fakePreElement.appendRecorder = [];
 
-fakePreElement.append = function(text) {
-	fakePreElement.appendRecorder.push(text);
+var fakePreElement = {
+	innerHTML: ''
 };
 
 module.exports = fakePreElement;
