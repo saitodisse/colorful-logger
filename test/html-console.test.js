@@ -28,7 +28,7 @@ buster.testCase('HTML console:', {
 		//cleaning mocks
 		fakeConsole.logRecorder = [];
 		fakePreElement.innerHTML = '';
-
+		htmlConsole.groupList = [];
 	},
 
 	tearDown: function () {
@@ -56,21 +56,24 @@ buster.testCase('HTML console:', {
 		equals('<span style="color: red">SOME </span><span style="color: blue">LOG</span>\n', fakePreElement.innerHTML);
 	},
 
-	'groupCollapsed creates 2 divs': function(){
+	'groupCollapsed do not do nothing yet, just add an item to groupList': function(){
 		htmlConsole.groupCollapsed('SOME LOG');
 
-		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">\n', fakePreElement.innerHTML);
+		equals(0, fakePreElement.innerHTML.length);
+		equals(1, htmlConsole.groupList.length);
+		equals('SOME LOG', htmlConsole.groupList[0].title);
 	},
 
 	'groupCollapsed can have css': function(){
 		htmlConsole.groupCollapsed('%cSOME', 'color: red');
 
-		equals('<div class="gc"><div class="gc_title"><span style="color: red">SOME</span></div><div class="gc_body">\n', fakePreElement.innerHTML);
+		equals('<span style="color: red">SOME</span>', htmlConsole.groupList[0].title);
 	},
 
-	'groupEnd closes 2 divs': function(){
+	'groupEnd prints a group': function(){
+		htmlConsole.groupCollapsed('SOME LOG');
 		htmlConsole.groupEnd();
-		equals('</div></div>\n', fakePreElement.innerHTML);
+		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body"></div></div>\n', fakePreElement.innerHTML);
 	},
 
 	'groupCollapsed with log inside': function(){
@@ -78,10 +81,10 @@ buster.testCase('HTML console:', {
 		htmlConsole.log('%cSOME', 'color: red');
 		htmlConsole.groupEnd();
 
-		var lines = fakePreElement.innerHTML.split('\n');
-		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">', lines[0]);
-		equals('<span style="color: red">SOME</span>', lines[1]);
-		equals('</div></div>', lines[2]);
+		equals(	'<div class="gc"><div class="gc_title">' +
+						'SOME LOG</div><div class="gc_body">'		 +
+						'<span style="color: red">SOME</span>'   +
+						'</div></div>\n', fakePreElement.innerHTML);
 	},
 
 });

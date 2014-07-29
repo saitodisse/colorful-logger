@@ -22,6 +22,27 @@
 
   var slice = Array.prototype.slice;
 
+
+
+
+  // ------------
+  // groupList[]
+  // ------------
+  // store groupCollapsed content
+  // when groupEnd is called output each group
+  //  -----------------------
+  //  group: {
+  //    title: '',
+  //    body:  ''
+  //  }
+  //  -----------------------
+  htmlConsole.groupList = [];
+  htmlConsole.getLastGroup = function() {
+    return htmlConsole.groupList[htmlConsole.groupList.length - 1];
+  };
+
+
+
   // ------------
   // Html Output: expecting a jQuery object with <pre> element
   // ------------
@@ -32,6 +53,9 @@
   htmlConsole.getHtmlOutput = function() {
     return this.htmlOutput;
   };
+
+
+
 
 
   // ------------
@@ -45,6 +69,14 @@
     return this.localConsole || console;
   };
 
+
+
+
+
+
+  // ------------
+  // create span with embeded CSS style
+  // ------------
   htmlConsole.createColoredSpan = function(args) {
     var parts = args[0].split('%c'),
         i,
@@ -76,45 +108,7 @@
 
 
 
-  // // ------------
-  // // from: http://stackoverflow.com/questions/7125453/modifying-css-class-property-values-on-the-fly-with-javascript-jquery/19613731#19613731
-  // // ------------
-  // htmlConsole.setStyle = function(cssText) {
-  //   var sheet = browserDocument.createElement('style'),
-  //       head = (browserDocument.head || browserDocument.getElementsByTagName('head')[0]),
-  //       isIE = false
-  //   ;
 
-  //   sheet.type = 'text/css';
-  //   /* Optional */ browserWindow.customSheet = sheet;
-  //   head.appendChild(sheet);
-    
-  //   try{
-  //     sheet
-  //       .cloneNode(false)
-  //       .appendChild(browserDocument.createTextNode(''));
-  //   }
-  //   catch(err){
-  //     isIE = true;
-  //   }
-  //   var wrapper = isIE ? browserDocument.createElement('div') : sheet;
-    
-  //   return (function(cssText, node) {
-  //     if(!node || node.parentNode !== wrapper){
-  //       node = wrapper.appendChild(browserDocument.createTextNode(cssText));
-  //     }
-  //     else{
-  //       node.nodeValue = cssText;
-  //     }
-    
-  //     if (isIE){
-  //       sheet.styleSheet.cssText = wrapper.innerHTML;
-  //     }
-    
-  //     return node;
-    
-  //   })(cssText);
-  // };
 
 
   // ------------
@@ -128,9 +122,17 @@
     // send to build-in browser console
     this.getLocalConsole().log.apply(this.getLocalConsole(), args);
 
-    // //send to html output
+    // send to html output
     if(_.isString(args[0])){
-      outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
+      
+      if(htmlConsole.groupList.length === 0){
+        // no group
+        outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
+      }
+      else{
+        // send to groupItem.body string
+        htmlConsole.getLastGroup().body += htmlConsole.createColoredSpan(args);
+      }
     }
   };
 
@@ -174,28 +176,41 @@
     // send to build-in browser console
     this.getLocalConsole().groupCollapsed.apply(this.getLocalConsole(), args);
 
-    // send to html output
+    // store on groupList
     if(_.isString(args[0])){
-
-      finalString =  '<div class="gc"><div class="gc_title">';
-      finalString += htmlConsole.createColoredSpan(args);
-      finalString +=  '</div><div class="gc_body">';
-      finalString += '\n';
-
-      outputElement.innerHTML += finalString;
+      htmlConsole.groupList.push({
+        title: htmlConsole.createColoredSpan(args),
+        body: ''
+      });
     }
 
   };
 
-
   htmlConsole.groupEnd = function() {
-    var outputElement = this.getHtmlOutput();
+    var outputElement = this.getHtmlOutput(),
+        finalString = '';
 
     // send to build-in browser console
     this.getLocalConsole().groupEnd.apply(this.getLocalConsole());
 
-    // send to html output
-    outputElement.innerHTML += '</div></div>\n';
+    // close and print last group
+    var lastGroup = htmlConsole.groupList.pop();
+    finalString =  '<div class="gc"><div class="gc_title">';
+    
+    // title
+    if(lastGroup.title){
+      finalString += lastGroup.title;
+    }
+    finalString +=  '</div><div class="gc_body">';
+    
+    // body
+    if(lastGroup.body){
+      finalString += lastGroup.body;
+    }
+    finalString += '</div></div>\n';
+    
+    // send to output
+    outputElement.innerHTML += finalString;
   };
 
 
@@ -251,3 +266,46 @@
   return htmlConsole;
 
 }));
+
+
+
+
+  // // ------------
+  // // from: http://stackoverflow.com/questions/7125453/modifying-css-class-property-values-on-the-fly-with-javascript-jquery/19613731#19613731
+  // // ------------
+  // htmlConsole.setStyle = function(cssText) {
+  //   var sheet = browserDocument.createElement('style'),
+  //       head = (browserDocument.head || browserDocument.getElementsByTagName('head')[0]),
+  //       isIE = false
+  //   ;
+
+  //   sheet.type = 'text/css';
+  //   /* Optional */ browserWindow.customSheet = sheet;
+  //   head.appendChild(sheet);
+    
+  //   try{
+  //     sheet
+  //       .cloneNode(false)
+  //       .appendChild(browserDocument.createTextNode(''));
+  //   }
+  //   catch(err){
+  //     isIE = true;
+  //   }
+  //   var wrapper = isIE ? browserDocument.createElement('div') : sheet;
+    
+  //   return (function(cssText, node) {
+  //     if(!node || node.parentNode !== wrapper){
+  //       node = wrapper.appendChild(browserDocument.createTextNode(cssText));
+  //     }
+  //     else{
+  //       node.nodeValue = cssText;
+  //     }
+    
+  //     if (isIE){
+  //       sheet.styleSheet.cssText = wrapper.innerHTML;
+  //     }
+    
+  //     return node;
+    
+  //   })(cssText);
+  // };
