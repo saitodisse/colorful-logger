@@ -26,7 +26,7 @@
 
 
   // ------------
-  // groupList[]
+  // firstGroupCollapsed[]
   // ------------
   // store groupCollapsed content
   // when groupEnd is called output each group
@@ -36,11 +36,41 @@
   //    body:  ''
   //  }
   //  -----------------------
-  htmlConsole.groupList = [];
-  htmlConsole.getLastGroup = function() {
-    return htmlConsole.groupList[htmlConsole.groupList.length - 1];
-  };
+  htmlConsole.firstGroupCollapsed = undefined;
+  htmlConsole.currentGroup = undefined;
+  htmlConsole.createGroupCollapsed = function(title) {
+    var groupCollapsed = {
+      title: title,
+      body: '',
+      finalInnerHTML: '<div class="gc"><div class="gc_title">' + title + '</div><div class="gc_body">',
+      childGroups: [],
+      parent: undefined
+    };
 
+    if(_.isUndefined(htmlConsole.firstGroupCollapsed)){
+      // ------------------
+      // first group
+      // ------------------
+      htmlConsole.firstGroupCollapsed = groupCollapsed;
+      htmlConsole.currentGroup        = groupCollapsed;
+    }
+    else{
+      // ------------------
+      // group inside other
+      // ------------------
+
+      // set parent as the current
+      groupCollapsed.parent = htmlConsole.currentGroup;
+
+      // add a child to current
+      htmlConsole.currentGroup.childGroups.push(groupCollapsed);
+
+      // current group is this group, now
+      htmlConsole.currentGroup = groupCollapsed;
+    }
+
+    return groupCollapsed;
+  };
 
 
   // ------------
@@ -125,13 +155,13 @@
     // send to html output
     if(_.isString(args[0])){
       
-      if(htmlConsole.groupList.length === 0){
+      if(!htmlConsole.firstGroupCollapsed){
         // no group
         outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
       }
       else{
         // send to groupItem.body string
-        htmlConsole.getLastGroup().body += htmlConsole.createColoredSpan(args);
+        htmlConsole.currentGroup.body += htmlConsole.createColoredSpan(args);
       }
     }
   };
@@ -176,41 +206,43 @@
     // send to build-in browser console
     this.getLocalConsole().groupCollapsed.apply(this.getLocalConsole(), args);
 
-    // store on groupList
+    // store on firstGroupCollapsed
     if(_.isString(args[0])){
-      htmlConsole.groupList.push({
-        title: htmlConsole.createColoredSpan(args),
-        body: ''
-      });
+      if(_.isUndefined(htmlConsole.firstGroupCollapsed)){
+        htmlConsole.createGroupCollapsed(htmlConsole.createColoredSpan(args));
+      }
     }
 
   };
 
   htmlConsole.groupEnd = function() {
     var outputElement = this.getHtmlOutput(),
-        finalString = '';
+        currentGroup = htmlConsole.currentGroup,
+        finalInnerHTML = currentGroup.finalInnerHTML
+    ;
 
     // send to build-in browser console
     this.getLocalConsole().groupEnd.apply(this.getLocalConsole());
 
-    // close and print last group
-    var lastGroup = htmlConsole.groupList.pop();
-    finalString =  '<div class="gc"><div class="gc_title">';
-    
-    // title
-    if(lastGroup.title){
-      finalString += lastGroup.title;
-    }
-    finalString +=  '</div><div class="gc_body">';
-    
     // body
-    if(lastGroup.body){
-      finalString += lastGroup.body;
-    }
-    finalString += '</div></div>\n';
+    finalInnerHTML += currentGroup.body;
     
-    // send to output
-    outputElement.innerHTML += finalString;
+    // check children/ parent, i dont know!!! :P
+    // var hasParent = (!_.isUndefined(htmlConsole.parent));
+    // if (hasChilds) {
+    // }
+
+    finalInnerHTML += '</div></div>';
+    
+    // save the rendered result
+    currentGroup.finalInnerHTML = finalInnerHTML;
+
+    var isTheLastGroupToClose = (htmlConsole.firstGroupCollapsed === currentGroup);
+    if(isTheLastGroupToClose){
+      // send to output
+      outputElement.innerHTML += finalInnerHTML + '\n';
+    }
+
   };
 
 

@@ -28,7 +28,8 @@ buster.testCase('HTML console:', {
 		//cleaning mocks
 		fakeConsole.logRecorder = [];
 		fakePreElement.innerHTML = '';
-		htmlConsole.groupList = [];
+		htmlConsole.firstGroupCollapsed = undefined;
+		htmlConsole.currentGroup = undefined;
 	},
 
 	tearDown: function () {
@@ -60,14 +61,13 @@ buster.testCase('HTML console:', {
 		htmlConsole.groupCollapsed('SOME LOG');
 
 		equals(0, fakePreElement.innerHTML.length);
-		equals(1, htmlConsole.groupList.length);
-		equals('SOME LOG', htmlConsole.groupList[0].title);
+		equals('SOME LOG', htmlConsole.currentGroup.title);
 	},
 
 	'groupCollapsed can have css': function(){
 		htmlConsole.groupCollapsed('%cSOME', 'color: red');
 
-		equals('<span style="color: red">SOME</span>', htmlConsole.groupList[0].title);
+		equals('<span style="color: red">SOME</span>', htmlConsole.currentGroup.title);
 	},
 
 	'groupEnd prints a group': function(){
@@ -86,5 +86,52 @@ buster.testCase('HTML console:', {
 						'<span style="color: red">SOME</span>'   +
 						'</div></div>\n', fakePreElement.innerHTML);
 	},
+
+	'groupCollapsed with another groupCollapsed inside': function(){
+		htmlConsole.groupCollapsed('gc1');
+			htmlConsole.groupCollapsed('gc2');
+			htmlConsole.groupEnd();
+		htmlConsole.groupEnd();
+
+		equals(	
+						+	'<div class="gc">'							// the first group
+						+		'<div class="gc_title">'
+						+			'gc1'
+						+		'</div>'
+						+		'<div class="gc_body">'
+
+						+			'<div class="gc">'          // the second group is inside
+						+				'<div class="gc_title">'
+						+					'gc1'
+						+				'</div>'
+						+				'<div class="gc_body">'
+						+				'</div>'
+						+			'</div>'
+
+						+		'</div>'
+						+	'</div>'
+						+	'\n', fakePreElement.innerHTML);
+	},
+
+	// 'groupCollapsed with another groupCollapsed inside': function(){
+	// 	htmlConsole.groupCollapsed('gc1');
+	// 		htmlConsole.log('log1.1');
+	// 		htmlConsole.groupCollapsed('gc2');
+	// 			htmlConsole.log('log2.1');
+	// 		htmlConsole.groupEnd();
+	// 	htmlConsole.groupEnd();
+
+	// 	equals(	
+	// 					'<div class="gc"><div class="gc_title">' +
+	// 					'gc1</div><div class="gc_body">'		 +
+
+	// 						'<div class="gc"><div class="gc_title">' +
+	// 						'gc2</div><div class="gc_body">'		 +
+
+	// 							'log2.1'   +
+
+	// 						'</div></div>' +
+	// 					'</div></div>\n', fakePreElement.innerHTML);
+	// },
 
 });
