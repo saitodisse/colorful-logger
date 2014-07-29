@@ -62,9 +62,26 @@ buster.testCase('HTML console:', {
 		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">\n', fakePreElement.innerHTML);
 	},
 
+	'groupCollapsed can have css': function(){
+		htmlConsole.groupCollapsed('%cSOME', 'color: red');
+
+		equals('<div class="gc"><div class="gc_title"><span style="color: red">SOME</span></div><div class="gc_body">\n', fakePreElement.innerHTML);
+	},
+
 	'groupEnd closes 2 divs': function(){
 		htmlConsole.groupEnd();
 		equals('</div></div>\n', fakePreElement.innerHTML);
+	},
+
+	'groupCollapsed with log inside': function(){
+		htmlConsole.groupCollapsed('SOME LOG');
+		htmlConsole.log('%cSOME', 'color: red');
+		htmlConsole.groupEnd();
+
+		var lines = fakePreElement.innerHTML.split('\n');
+		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body">', lines[0]);
+		equals('<span style="color: red">SOME</span>', lines[1]);
+		equals('</div></div>', lines[2]);
 	},
 
 });
