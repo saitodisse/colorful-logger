@@ -93,16 +93,17 @@ buster.testCase('HTML console:', {
 			htmlConsole.groupEnd();
 		htmlConsole.groupEnd();
 
-		equals(	
-						+	'<div class="gc">'							// the first group
+		equals(	// the first group
+							'<div class="gc">'							
 						+		'<div class="gc_title">'
 						+			'gc1'
 						+		'</div>'
 						+		'<div class="gc_body">'
 
-						+			'<div class="gc">'          // the second group is inside
+						// the second group is inside
+						+			'<div class="gc">'
 						+				'<div class="gc_title">'
-						+					'gc1'
+						+					'gc2'
 						+				'</div>'
 						+				'<div class="gc_body">'
 						+				'</div>'

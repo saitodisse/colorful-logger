@@ -199,18 +199,13 @@
 
   htmlConsole.groupCollapsed = function() {
     var args = slice.call(arguments),
-        outputElement = this.getHtmlOutput(),
-        finalString = ''
-    ;
+        title = htmlConsole.createColoredSpan(args);
 
     // send to build-in browser console
     this.getLocalConsole().groupCollapsed.apply(this.getLocalConsole(), args);
 
-    // store on firstGroupCollapsed
-    if(_.isString(args[0])){
-      if(_.isUndefined(htmlConsole.firstGroupCollapsed)){
-        htmlConsole.createGroupCollapsed(htmlConsole.createColoredSpan(args));
-      }
+    if ( _.isString(args[0] ) ){
+      htmlConsole.createGroupCollapsed( title );
     }
 
   };
@@ -234,13 +229,21 @@
 
     finalInnerHTML += '</div></div>';
     
-    // save the rendered result
+    // rendered HTML
     currentGroup.finalInnerHTML = finalInnerHTML;
+    // rendered HTML to parent
+    if(currentGroup.parent){
+      currentGroup.parent.body += currentGroup.finalInnerHTML;
+    }
 
     var isTheLastGroupToClose = (htmlConsole.firstGroupCollapsed === currentGroup);
     if(isTheLastGroupToClose){
       // send to output
       outputElement.innerHTML += finalInnerHTML + '\n';
+
+      // reset
+      htmlConsole.firstGroupCollapsed = undefined;
+      currentGroup = undefined;
     }
 
   };
