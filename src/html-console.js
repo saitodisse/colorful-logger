@@ -245,6 +245,9 @@
       htmlConsole.firstGroupCollapsed = undefined;
       currentGroup = undefined;
     }
+    else{
+      currentGroup = currentGroup.parent;
+    }
 
   };
 
