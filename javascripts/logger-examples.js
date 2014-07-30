@@ -124,7 +124,7 @@ define([
   }
 
   var makeGroups = function() {
-    logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });1
+    logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });
       makeRandom(7);
       logger.log({ message: 'Group 2', logType: 'groupCollapsed', randomColor: true });
         makeRandom(7);

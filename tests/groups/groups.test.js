@@ -6,7 +6,7 @@ define([
 ], function (ColorfulLogger, htmlConsole, $) {
   'use strict';
 
-  var preElement = document.querySelectorAll("#localHtmlConsole")[0];
+  var preElement = document.querySelectorAll('#localHtmlConsole')[0];
   htmlConsole.setHtmlOutput(preElement);
 
   var logger = new ColorfulLogger.Logger({
@@ -17,32 +17,87 @@ define([
   var GroupsTest = function() {
     
     // run tests to debug
-    can_make_group_insede_other_group();
-
+    callAllTests();
 
     // call some jQuery
     configureGroupsToCollapse();
-    
   };
 
-  var can_make_group_insede_other_group = function() {
+  var callAllTests = function() {
+    var testName = '';
+    for (var i = 0; i < allTests.length; i++) {
+      testName = allTests[i].funcName + ': ';
+      logger.log({ message: testName });  
+      allTests[i].funcBody();
+    }
+  };
+
+  var allTests = [];
+  var createTest = function(testName, callback) {
+    allTests.push({ funcName: testName, funcBody: callback });
+  };
+
+  createTest('simple empty group', function() {
+    logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
+    logger.log({ logType: 'groupEnd' });
+  });
+
+  createTest('group with a log inside', function() {
+    logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: 'log inside' });
+    logger.log({ logType: 'groupEnd' });
+  });
+
+  createTest('can make group inside other group', function() {
     logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
       logger.log({ message: 'gc-2', logType: 'groupCollapsed', randomColor: true });
       logger.log({ logType: 'groupEnd' });
     logger.log({ logType: 'groupEnd' });
-  };
+  });
+
+  createTest('can make group inside other group with a log inside', function() {
+    logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: 'gc-2', logType: 'groupCollapsed', randomColor: true });
+        logger.log({ message: 'log inside' });
+      logger.log({ logType: 'groupEnd' });
+    logger.log({ logType: 'groupEnd' });
+  });
+
+  createTest('two groups inside other', function() {
+    logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: 'gc-2.1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ logType: 'groupEnd' });
+      logger.log({ message: 'gc-2.2', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ logType: 'groupEnd' });
+    logger.log({ logType: 'groupEnd' });
+  });
+
+  createTest('two groups inside other with logs', function() {
+    logger.log({ message: 'gc-1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: '1-top' });
+      logger.log({ message: 'gc-2.1', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: '2.1-inside' });
+      logger.log({ logType: 'groupEnd' });
+      logger.log({ message: '1-middle A' });
+      logger.log({ message: '1-middle B' });
+      logger.log({ message: 'gc-2.2', logType: 'groupCollapsed', randomColor: true });
+      logger.log({ message: '2.2-inside' });
+      logger.log({ logType: 'groupEnd' });
+      logger.log({ message: '1-bottom' });
+    logger.log({ logType: 'groupEnd' });
+  });
 
   var configureGroupsToCollapse = function() {
     $(document).ready(function() {
       // Hides all paragraphs
-      $(".gc_body").hide();
-      // Optional for showing the first paragraph. For animation use .slideDown(200) instead of .show()
-      $(".gc_title").click(function()
+      $('.gc_body').hide();
+      // Shows all paragraphs
+      $('.gc_body').slideToggle(500);
+
+      $('.gc_title').click(function()
       {
-        // Toggles the paragraph under the header that is clicked. .slideToggle(200) can be changed to .slideDown(200) to make sure one paragraph is shown at all times.
-        $(this).next(".gc_body").slideToggle(100);
-        // Makes other pararaphes that is not under the current clicked heading dissapear
-        //$(this).siblings().next(".gc_body").slideUp(200);
+        // Toggles the paragraph under the header that is clicked.
+        $(this).next('.gc_body').slideToggle(100);
       });
     });
   };

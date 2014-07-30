@@ -1,0 +1,28 @@
+.gc:before{
+  font-family: Georgia, Times, "Times New Roman", serif;
+  content: '>';
+  float: left;
+  margin: 0 5px 0 0;
+  color: #700;
+}
+
+.gc{
+  padding: 0 0 0 10px;
+}
+
+.gc_title{
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.gc_title:hover { 
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.gc_body{
+  /*border-top: 1px solid #ddd;*/
+  border-left: 1px solid #bbb;
+  padding: 0 0 0 10px;
+}
