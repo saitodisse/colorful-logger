@@ -22,6 +22,57 @@
 
   var slice = Array.prototype.slice;
 
+
+
+
+  // ------------
+  // firstGroupCollapsed[]
+  // ------------
+  // store groupCollapsed content
+  // when groupEnd is called output each group
+  //  -----------------------
+  //  group: {
+  //    title: '',
+  //    body:  ''
+  //  }
+  //  -----------------------
+  htmlConsole.firstGroupCollapsed = undefined;
+  htmlConsole.currentGroup = undefined;
+  htmlConsole.createGroupCollapsed = function(title) {
+    var groupCollapsed = {
+      title: title,
+      body: '',
+      finalInnerHTML: '<div class="gc"><div class="gc_title">' + title + '</div><div class="gc_body">',
+      childGroups: [],
+      parent: undefined
+    };
+
+    if(_.isUndefined(htmlConsole.firstGroupCollapsed)){
+      // ------------------
+      // first group
+      // ------------------
+      htmlConsole.firstGroupCollapsed = groupCollapsed;
+      htmlConsole.currentGroup        = groupCollapsed;
+    }
+    else{
+      // ------------------
+      // group inside other
+      // ------------------
+
+      // set parent as the current
+      groupCollapsed.parent = htmlConsole.currentGroup;
+
+      // add a child to current
+      htmlConsole.currentGroup.childGroups.push(groupCollapsed);
+
+      // current group is this group, now
+      htmlConsole.currentGroup = groupCollapsed;
+    }
+
+    return groupCollapsed;
+  };
+
+
   // ------------
   // Html Output: expecting a jQuery object with <pre> element
   // ------------
@@ -32,6 +83,9 @@
   htmlConsole.getHtmlOutput = function() {
     return this.htmlOutput;
   };
+
+
+
 
 
   // ------------
@@ -47,45 +101,44 @@
 
 
 
-  // // ------------
-  // // from: http://stackoverflow.com/questions/7125453/modifying-css-class-property-values-on-the-fly-with-javascript-jquery/19613731#19613731
-  // // ------------
-  // htmlConsole.setStyle = function(cssText) {
-  //   var sheet = browserDocument.createElement('style'),
-  //       head = (browserDocument.head || browserDocument.getElementsByTagName('head')[0]),
-  //       isIE = false
-  //   ;
 
-  //   sheet.type = 'text/css';
-  //   /* Optional */ browserWindow.customSheet = sheet;
-  //   head.appendChild(sheet);
-    
-  //   try{
-  //     sheet
-  //       .cloneNode(false)
-  //       .appendChild(browserDocument.createTextNode(''));
-  //   }
-  //   catch(err){
-  //     isIE = true;
-  //   }
-  //   var wrapper = isIE ? browserDocument.createElement('div') : sheet;
-    
-  //   return (function(cssText, node) {
-  //     if(!node || node.parentNode !== wrapper){
-  //       node = wrapper.appendChild(browserDocument.createTextNode(cssText));
-  //     }
-  //     else{
-  //       node.nodeValue = cssText;
-  //     }
-    
-  //     if (isIE){
-  //       sheet.styleSheet.cssText = wrapper.innerHTML;
-  //     }
-    
-  //     return node;
-    
-  //   })(cssText);
-  // };
+
+
+  // ------------
+  // create span with embeded CSS style
+  // ------------
+  htmlConsole.createColoredSpan = function(args) {
+    var parts = args[0].split('%c'),
+        i,
+        afterSymbol,
+        cssStyle,
+        finalString = ''
+    ;
+
+    if(parts.length > 1){
+      for (i = 0; i < parts.length; i++) {
+        //  Some %cText ==> the 'Text' part
+        afterSymbol = parts[i+1];
+
+        //  console.log('Some %cText', 'color:blue') ==> the 'color:blue' configuration
+        cssStyle = args[i+1];
+
+        if(!_.isUndefined(afterSymbol)){
+          finalString += '<span style="'+ cssStyle +'">';
+          finalString += afterSymbol;
+          finalString += '</span>';
+        }
+      }
+      return(finalString);
+    }
+    else{
+      return(args[0]);
+    }
+  };
+
+
+
+
 
 
   // ------------
@@ -93,40 +146,23 @@
   // ------------
   htmlConsole.log = function() {
     var args = slice.call(arguments),
-        parts,
-        i,
-        afterSymbol,
-        cssStyle,
-        finalString = ''
+        outputElement = this.getHtmlOutput()
     ;
 
     // send to build-in browser console
     this.getLocalConsole().log.apply(this.getLocalConsole(), args);
 
-    // //send to html output
+    // send to html output
     if(_.isString(args[0])){
-      parts = args[0].split('%c');
-      if(parts.length > 1){
-        for (i = 0; i < parts.length; i++) {
-          //  Some %cText ==> the 'Text' part
-          afterSymbol = parts[i+1];
-
-          //  console.log('Some %cText', 'color:blue') ==> the 'color:blue' configuration
-          cssStyle = args[i+1];
-
-          if(!_.isUndefined(afterSymbol)){
-            finalString += '<span style="'+ cssStyle +'">';
-            finalString += afterSymbol;
-            finalString += '</span>';
-          }
-        };
-        finalString += '\n';
-        this.getHtmlOutput().append(finalString);
+      
+      if(!htmlConsole.firstGroupCollapsed){
+        // no group
+        outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
       }
       else{
-        this.getHtmlOutput().append(args[0] + '\n');
+        // send to groupItem.body string
+        htmlConsole.currentGroup.body += htmlConsole.createColoredSpan(args);
       }
-
     }
   };
 
@@ -162,21 +198,57 @@
 
 
   htmlConsole.groupCollapsed = function() {
-    var args = slice.call(arguments);
+    var args = slice.call(arguments),
+        title = htmlConsole.createColoredSpan(args);
+
+    // send to build-in browser console
     this.getLocalConsole().groupCollapsed.apply(this.getLocalConsole(), args);
 
-    //send to html output
-    var no_CSS_message;
-    if(typeof args[0] !== 'undefined'){
-      no_CSS_message = args[0].toString().replace(/\%c/gi, '');
+    if ( _.isString(args[0] ) ){
+      htmlConsole.createGroupCollapsed( title );
     }
-    this.getHtmlOutput().append('<div class="colapse">' + no_CSS_message + '</div>');
+
   };
 
-
   htmlConsole.groupEnd = function() {
-    var args = slice.call(arguments);
-    this.getLocalConsole().groupEnd.apply(this.getLocalConsole(), args);
+    var outputElement = this.getHtmlOutput(),
+        currentGroup = htmlConsole.currentGroup,
+        finalInnerHTML = currentGroup.finalInnerHTML
+    ;
+
+    // send to build-in browser console
+    this.getLocalConsole().groupEnd.apply(this.getLocalConsole());
+
+    // body
+    finalInnerHTML += currentGroup.body;
+    
+    // check children/ parent, i dont know!!! :P
+    // var hasParent = (!_.isUndefined(htmlConsole.parent));
+    // if (hasChilds) {
+    // }
+
+    finalInnerHTML += '</div></div>';
+    
+    // rendered HTML
+    currentGroup.finalInnerHTML = finalInnerHTML;
+    // rendered HTML to parent
+    if(currentGroup.parent){
+      currentGroup.parent.body += currentGroup.finalInnerHTML;
+    }
+
+    var isTheLastGroupToClose = (htmlConsole.firstGroupCollapsed === currentGroup);
+    if(isTheLastGroupToClose){
+      // send to output
+      outputElement.innerHTML += finalInnerHTML + '\n';
+
+      // reset
+      htmlConsole.firstGroupCollapsed = undefined;
+      currentGroup = undefined;
+    }
+    else{
+      currentGroup = currentGroup.parent;
+    }
+
   };
 
 
@@ -232,3 +304,46 @@
   return htmlConsole;
 
 }));
+
+
+
+
+  // // ------------
+  // // from: http://stackoverflow.com/questions/7125453/modifying-css-class-property-values-on-the-fly-with-javascript-jquery/19613731#19613731
+  // // ------------
+  // htmlConsole.setStyle = function(cssText) {
+  //   var sheet = browserDocument.createElement('style'),
+  //       head = (browserDocument.head || browserDocument.getElementsByTagName('head')[0]),
+  //       isIE = false
+  //   ;
+
+  //   sheet.type = 'text/css';
+  //   /* Optional */ browserWindow.customSheet = sheet;
+  //   head.appendChild(sheet);
+    
+  //   try{
+  //     sheet
+  //       .cloneNode(false)
+  //       .appendChild(browserDocument.createTextNode(''));
+  //   }
+  //   catch(err){
+  //     isIE = true;
+  //   }
+  //   var wrapper = isIE ? browserDocument.createElement('div') : sheet;
+    
+  //   return (function(cssText, node) {
+  //     if(!node || node.parentNode !== wrapper){
+  //       node = wrapper.appendChild(browserDocument.createTextNode(cssText));
+  //     }
+  //     else{
+  //       node.nodeValue = cssText;
+  //     }
+    
+  //     if (isIE){
+  //       sheet.styleSheet.cssText = wrapper.innerHTML;
+  //     }
+    
+  //     return node;
+    
+  //   })(cssText);
+  // };

@@ -6,7 +6,8 @@ define([
 ], function (ColorfulLogger, htmlConsole, $) {
   'use strict';
 
-  htmlConsole.setHtmlOutput($('#localHtmlConsole'));
+  var preElement = document.querySelectorAll("#localHtmlConsole")[0];
+  htmlConsole.setHtmlOutput(preElement);
 
   var logger = new ColorfulLogger.Logger({
     ignorePattern: /^ignored/i,
@@ -34,6 +35,8 @@ define([
     logger.log({ message: 'ignore regex patterns',  css: titleCss });
     logger.log({ message: 'simple message, not ignored' });
     logger.log({ message: 'ignored console output' });
+
+    configureGroups();
 
   };
 
@@ -121,7 +124,7 @@ define([
   }
 
   var makeGroups = function() {
-    logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });
+    logger.log({ message: 'Group 1', logType: 'groupCollapsed', randomColor: true });1
       makeRandom(7);
       logger.log({ message: 'Group 2', logType: 'groupCollapsed', randomColor: true });
         makeRandom(7);
@@ -141,6 +144,21 @@ define([
       logger.log({ logType: 'groupEnd' });
     logger.log({ logType: 'groupEnd' });
 
+  };
+
+  var configureGroups = function() {
+    $(document).ready(function() {
+      // Hides all paragraphs
+      $(".gc_body").hide();
+      // Optional for showing the first paragraph. For animation use .slideDown(200) instead of .show()
+      $(".gc_title").click(function()
+      {
+        // Toggles the paragraph under the header that is clicked. .slideToggle(200) can be changed to .slideDown(200) to make sure one paragraph is shown at all times.
+        $(this).next(".gc_body").slideToggle(100);
+        // Makes other pararaphes that is not under the current clicked heading dissapear
+        //$(this).siblings().next(".gc_body").slideUp(200);
+      });
+    });
   };
 
   return LoggerExamples;
