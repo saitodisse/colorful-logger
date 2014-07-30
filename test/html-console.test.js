@@ -114,25 +114,4 @@ buster.testCase('HTML console:', {
 						+	'\n', fakePreElement.innerHTML);
 	},
 
-	// 'groupCollapsed with another groupCollapsed inside': function(){
-	// 	htmlConsole.groupCollapsed('gc1');
-	// 		htmlConsole.log('log1.1');
-	// 		htmlConsole.groupCollapsed('gc2');
-	// 			htmlConsole.log('log2.1');
-	// 		htmlConsole.groupEnd();
-	// 	htmlConsole.groupEnd();
-
-	// 	equals(	
-	// 					'<div class="gc"><div class="gc_title">' +
-	// 					'gc1</div><div class="gc_body">'		 +
-
-	// 						'<div class="gc"><div class="gc_title">' +
-	// 						'gc2</div><div class="gc_body">'		 +
-
-	// 							'log2.1'   +
-
-	// 						'</div></div>' +
-	// 					'</div></div>\n', fakePreElement.innerHTML);
-	// },
-
 });

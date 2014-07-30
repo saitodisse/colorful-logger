@@ -243,10 +243,10 @@
 
       // reset
       htmlConsole.firstGroupCollapsed = undefined;
-      currentGroup = undefined;
+      htmlConsole.currentGroup = undefined;
     }
     else{
-      currentGroup = currentGroup.parent;
+      htmlConsole.currentGroup = currentGroup.parent;
     }
 
   };
