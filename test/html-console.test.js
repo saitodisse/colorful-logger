@@ -39,7 +39,7 @@ buster.testCase('HTML console:', {
 		equals(0, fakePreElement.innerHTML.length);
 		equals(0, fakeConsole.logRecorder.length);
 
-		htmlConsole.log('SOME TEXT');
+		htmlConsole.log('LOG');
 		
 		equals(true, fakePreElement.innerHTML.length > 0);
 		equals(1, fakeConsole.logRecorder.length);
@@ -58,33 +58,42 @@ buster.testCase('HTML console:', {
 	},
 
 	'groupCollapsed do not do nothing yet, just add an item to groupList': function(){
-		htmlConsole.groupCollapsed('SOME LOG');
+		htmlConsole.groupCollapsed('gc1');
 
 		equals(0, fakePreElement.innerHTML.length);
-		equals('SOME LOG', htmlConsole.currentGroup.title);
+		equals('gc1', htmlConsole.currentGroup.title);
 	},
 
 	'groupCollapsed can have css': function(){
-		htmlConsole.groupCollapsed('%cSOME', 'color: red');
+		htmlConsole.groupCollapsed('%cgc1', 'color: red');
 
-		equals('<span style="color: red">SOME</span>', htmlConsole.currentGroup.title);
+		equals('<span style="color: red">gc1</span>', htmlConsole.currentGroup.title);
 	},
 
 	'groupEnd prints a group': function(){
-		htmlConsole.groupCollapsed('SOME LOG');
+		htmlConsole.groupCollapsed('gc1');
 		htmlConsole.groupEnd();
-		equals('<div class="gc"><div class="gc_title">SOME LOG</div><div class="gc_body"></div></div>\n', fakePreElement.innerHTML);
+		equals('<div class="gc"><div class="gc_title">gc1</div><div class="gc_body"></div></div>\n', fakePreElement.innerHTML);
 	},
 
 	'groupCollapsed with log inside': function(){
-		htmlConsole.groupCollapsed('SOME LOG');
+		htmlConsole.groupCollapsed('gc1');
 		htmlConsole.log('%cSOME', 'color: red');
 		htmlConsole.groupEnd();
 
-		equals(	'<div class="gc"><div class="gc_title">' +
-						'SOME LOG</div><div class="gc_body">'		 +
-						'<span style="color: red">SOME</span>'   +
-						'</div></div>\n', fakePreElement.innerHTML);
+		equals(	// the first group
+							'<div class="gc">'							
+						+		'<div class="gc_title">'
+						+			'gc1'
+						+		'</div>'
+						+		'<div class="gc_body">'
+
+						+			'<span style="color: red">SOME</span>\n'
+
+						+		'</div>'
+						+	'</div>'
+						+	'\n', fakePreElement.innerHTML);
+
 	},
 
 	'groupCollapsed with another groupCollapsed inside': function(){
@@ -108,6 +117,27 @@ buster.testCase('HTML console:', {
 						+				'<div class="gc_body">'
 						+				'</div>'
 						+			'</div>'
+
+						+		'</div>'
+						+	'</div>'
+						+	'\n', fakePreElement.innerHTML);
+	},
+
+	'two logs inside the group': function(){
+		htmlConsole.groupCollapsed('gc1');
+			htmlConsole.log('LOG 1');
+			htmlConsole.log('LOG 2');
+		htmlConsole.groupEnd();
+
+		equals(	// the first group
+							'<div class="gc">'							
+						+		'<div class="gc_title">'
+						+			'gc1'
+						+		'</div>'
+						+		'<div class="gc_body">'
+
+						+			'LOG 1\n'
+						+			'LOG 2\n'
 
 						+		'</div>'
 						+	'</div>'

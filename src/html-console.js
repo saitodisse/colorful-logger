@@ -161,7 +161,7 @@
       }
       else{
         // send to groupItem.body string
-        htmlConsole.currentGroup.body += htmlConsole.createColoredSpan(args);
+        htmlConsole.currentGroup.body += htmlConsole.createColoredSpan(args) + '\n';
       }
     }
   };
