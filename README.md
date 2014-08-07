@@ -1,7 +1,6 @@
 by: [saitodisse](http://saitodisse.github.io/)
 
 #colorful-logger 
-###[0.1.1 (beta)]
 colorful console.log
 
 ###bower
