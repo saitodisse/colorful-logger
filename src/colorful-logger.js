@@ -13,14 +13,14 @@
 
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['lodash', 'exports'], function (_, exports) {
+    define(['./custom-lodash', 'exports'], function (_, exports) {
       factory(root, exports, _);
     });
 
   // Node.js
   }
   else if (typeof exports !== 'undefined') {
-    var _ = require('lodash');
+    var _ = require('./custom-lodash');
     factory(root, exports, _);
   }
   // Browser globals
@@ -116,7 +116,7 @@
 			}
 
 			this.sendToOutput(opt, fullMessage, cssList);
-			
+
 			return true;
 		};
 
@@ -166,7 +166,7 @@
 					else{
 						opt.css = opt.css + '; color: ' + oneColor;
 					}
-					
+
 				}
 				cssList.push(opt.css);
 			}
@@ -174,7 +174,7 @@
 
 		this.sendToOutput = function(opt, message, cssList) {
 			var localConsole = this.config.output;
-			
+
 			if(opt && _.isArray(opt)){
 				opt = opt[0];
 			}

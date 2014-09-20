@@ -3,14 +3,14 @@
 
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['lodash', 'exports'], function (_, exports) {
+    define(['./custom-lodash', 'exports'], function (_, exports) {
       factory(root, exports, _);
     });
 
   // Node.js
   }
   else if (typeof exports !== 'undefined') {
-    var _ = require('lodash');
+    var _ = require('./custom-lodash');
     factory(root, exports, _);
   }
   // Browser globals
@@ -154,7 +154,7 @@
 
     // send to html output
     if(_.isString(args[0])){
-      
+
       if(!htmlConsole.firstGroupCollapsed){
         // no group
         outputElement.innerHTML += htmlConsole.createColoredSpan(args) + '\n';
@@ -221,14 +221,14 @@
 
     // body
     finalInnerHTML += currentGroup.body;
-    
+
     // check children/ parent, i dont know!!! :P
     // var hasParent = (!_.isUndefined(htmlConsole.parent));
     // if (hasChilds) {
     // }
 
     finalInnerHTML += '</div></div>';
-    
+
     // rendered HTML
     currentGroup.finalInnerHTML = finalInnerHTML;
     // rendered HTML to parent
@@ -320,7 +320,7 @@
   //   sheet.type = 'text/css';
   //   /* Optional */ browserWindow.customSheet = sheet;
   //   head.appendChild(sheet);
-    
+
   //   try{
   //     sheet
   //       .cloneNode(false)
@@ -330,7 +330,7 @@
   //     isIE = true;
   //   }
   //   var wrapper = isIE ? browserDocument.createElement('div') : sheet;
-    
+
   //   return (function(cssText, node) {
   //     if(!node || node.parentNode !== wrapper){
   //       node = wrapper.appendChild(browserDocument.createTextNode(cssText));
@@ -338,12 +338,12 @@
   //     else{
   //       node.nodeValue = cssText;
   //     }
-    
+
   //     if (isIE){
   //       sheet.styleSheet.cssText = wrapper.innerHTML;
   //     }
-    
+
   //     return node;
-    
+
   //   })(cssText);
   // };
